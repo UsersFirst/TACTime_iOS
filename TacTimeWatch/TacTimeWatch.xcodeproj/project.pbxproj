@@ -21,6 +21,10 @@
 		1F3E95C12018D66400B5BD84 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3E95C02018D66400B5BD84 /* NotificationController.swift */; };
 		1F3E95C32018D66400B5BD84 /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3E95C22018D66400B5BD84 /* ComplicationController.swift */; };
 		1F3E95C52018D66400B5BD84 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F3E95C42018D66400B5BD84 /* Assets.xcassets */; };
+		1F3E95D92018E2FE00B5BD84 /* WatchCoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1F3E95D72018E2FE00B5BD84 /* WatchCoreDataModel.xcdatamodeld */; };
+		1F3E95EB2018FDA300B5BD84 /* WatchDataModel+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3E95E62018E7B300B5BD84 /* WatchDataModel+CoreDataProperties.swift */; };
+		1F3E95EC2018FDA300B5BD84 /* WatchDataModel+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3E95E52018E7B300B5BD84 /* WatchDataModel+CoreDataClass.swift */; };
+		1F3E95EE201900A100B5BD84 /* WatchDataTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3E95ED201900A100B5BD84 /* WatchDataTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +89,11 @@
 		1F3E95C42018D66400B5BD84 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1F3E95C62018D66400B5BD84 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1F3E95C72018D66400B5BD84 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
+		1F3E95D82018E2FE00B5BD84 /* WatchCoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = WatchCoreDataModel.xcdatamodel; sourceTree = "<group>"; };
+		1F3E95DE2018E71C00B5BD84 /* TacTimeWatch WatchKit App-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TacTimeWatch WatchKit App-Bridging-Header.h"; sourceTree = "<group>"; };
+		1F3E95E52018E7B300B5BD84 /* WatchDataModel+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WatchDataModel+CoreDataClass.swift"; sourceTree = "<group>"; };
+		1F3E95E62018E7B300B5BD84 /* WatchDataModel+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WatchDataModel+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		1F3E95ED201900A100B5BD84 /* WatchDataTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchDataTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +121,7 @@
 				1F3E95AC2018D66400B5BD84 /* TacTimeWatch WatchKit App */,
 				1F3E95BB2018D66400B5BD84 /* TacTimeWatch WatchKit Extension */,
 				1F3E95972018D66400B5BD84 /* Products */,
+				1F3E95DE2018E71C00B5BD84 /* TacTimeWatch WatchKit App-Bridging-Header.h */,
 			);
 			sourceTree = "<group>";
 		};
@@ -128,12 +138,16 @@
 		1F3E95982018D66400B5BD84 /* TacTimeWatch */ = {
 			isa = PBXGroup;
 			children = (
+				1F3E95E52018E7B300B5BD84 /* WatchDataModel+CoreDataClass.swift */,
+				1F3E95E62018E7B300B5BD84 /* WatchDataModel+CoreDataProperties.swift */,
 				1F3E95992018D66400B5BD84 /* AppDelegate.swift */,
 				1F3E959B2018D66400B5BD84 /* ViewController.swift */,
 				1F3E959D2018D66400B5BD84 /* Main.storyboard */,
 				1F3E95A02018D66400B5BD84 /* Assets.xcassets */,
 				1F3E95A22018D66400B5BD84 /* LaunchScreen.storyboard */,
 				1F3E95A52018D66400B5BD84 /* Info.plist */,
+				1F3E95ED201900A100B5BD84 /* WatchDataTableViewCell.swift */,
+				1F3E95D72018E2FE00B5BD84 /* WatchCoreDataModel.xcdatamodeld */,
 			);
 			path = TacTimeWatch;
 			sourceTree = "<group>";
@@ -234,6 +248,7 @@
 					};
 					1F3E95A72018D66400B5BD84 = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 					};
 					1F3E95B62018D66400B5BD84 = {
@@ -297,8 +312,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F3E95D92018E2FE00B5BD84 /* WatchCoreDataModel.xcdatamodeld in Sources */,
+				1F3E95EE201900A100B5BD84 /* WatchDataTableViewCell.swift in Sources */,
+				1F3E95EC2018FDA300B5BD84 /* WatchDataModel+CoreDataClass.swift in Sources */,
 				1F3E959C2018D66400B5BD84 /* ViewController.swift in Sources */,
 				1F3E959A2018D66400B5BD84 /* AppDelegate.swift in Sources */,
+				1F3E95EB2018FDA300B5BD84 /* WatchDataModel+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -502,13 +521,17 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				IBSC_MODULE = TacTimeWatch_WatchKit_Extension;
 				INFOPLIST_FILE = "TacTimeWatch WatchKit App/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = bibek.TacTimeWatch.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "TacTimeWatch WatchKit App-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 4.2;
@@ -520,13 +543,16 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				IBSC_MODULE = TacTimeWatch_WatchKit_Extension;
 				INFOPLIST_FILE = "TacTimeWatch WatchKit App/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = bibek.TacTimeWatch.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "TacTimeWatch WatchKit App-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 4.2;
@@ -601,6 +627,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		1F3E95D72018E2FE00B5BD84 /* WatchCoreDataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				1F3E95D82018E2FE00B5BD84 /* WatchCoreDataModel.xcdatamodel */,
+			);
+			currentVersion = 1F3E95D82018E2FE00B5BD84 /* WatchCoreDataModel.xcdatamodel */;
+			path = WatchCoreDataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 1F3E958E2018D66400B5BD84 /* Project object */;
 }
