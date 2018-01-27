@@ -13,11 +13,18 @@ import CoreData
 class ViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var dateLabel: UILabel!
     
-    let session = WCSession.default
-    var data: [WatchDataModel] = [] {
+    private let session = WCSession.default
+    private var data: [WatchDataModel] = [] {
         didSet {
             self.tableView.reloadData()
+        }
+    }
+    private var date: Date = Date() {
+        didSet {
+            setDate()
+            fetchData()
         }
     }
     
@@ -26,8 +33,33 @@ class ViewController: UIViewController {
         session.delegate = self
         session.activate()
         
+        setDate()
+        
         tableView.dataSource = self
+        tableView.tableFooterView = UIView()
+        
+        let rightSwipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(self.swipped(_:)))
+        let leftSwipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(self.swipped(_:)))
+        leftSwipeGesture.direction = .left
+        self.tableView.addGestureRecognizer(rightSwipeGesture)
+        self.tableView.addGestureRecognizer(leftSwipeGesture)
+        
         ["7 AM to 8 PM work at office", "8 PM to 9:15 PM workout at gym", "9:20 PM to 10 PM Watch tv"].forEach(parseAndSave)
+    }
+    
+    @objc private func swipped(_ gesture: UISwipeGestureRecognizer) {
+        if gesture.state == .ended {
+            let multiplier: Double = gesture.direction.contains(.left) ? 1 : -1
+            self.date = self.date.addingTimeInterval(24*60*60*multiplier)
+            self.fetchData()
+        }
+    }
+    
+    private func setDate() {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "E, dd MMM, YYYY"
+        dateFormatter.locale = Locale(identifier: "en_US")
+        self.dateLabel.text = dateFormatter.string(from: self.date)
     }
     
     private func fetchData() {
@@ -39,6 +71,7 @@ class ViewController: UIViewController {
             appDelegate.persistentContainer.viewContext
         let fetchRequest =
             NSFetchRequest<NSManagedObject>(entityName: "WatchDataModel")
+        fetchRequest.predicate = NSPredicate(format: "(startDate >= %@) AND (startDate <= %@)", argumentArray: [date.startOfDay as NSDate, date.endOfDay! as NSDate])
         do {
             data = try managedContext.fetch(fetchRequest) as! [WatchDataModel]
         } catch let error as NSError {
@@ -85,19 +118,27 @@ class ViewController: UIViewController {
         let start = splitted?.first?.trimmingCharacters(in: .whitespacesAndNewlines)
         let end = splitted?.last?.trimmingCharacters(in: .whitespacesAndNewlines)
         let remainingText = startToEndTime.first.map({text.components(separatedBy: $0)})?.last?.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yyyy"
+        dateFormatter.locale = Locale(identifier: "en_US")
+        let dateString = dateFormatter.string(from: Date())
+        
         let dateFormatter1 = DateFormatter()
-        dateFormatter1.dateFormat = "h:mm a"
+        dateFormatter1.dateFormat = "dd/MM/yyyy'T'h:mm a"
         dateFormatter1.locale = Locale(identifier: "en_US")
         
         let dateFormatter2 = DateFormatter()
-        dateFormatter2.dateFormat = "h a"
+        dateFormatter2.dateFormat = "dd/MM/yyyy'T'h a"
         dateFormatter2.locale = Locale(identifier: "en_US")
         
-        let startDate = start.flatMap({
-            dateFormatter1.date(from: $0) ?? dateFormatter2.date(from: $0)
+        let startDate: Date? = start.flatMap({
+            let completeDate = dateString + "T" + $0
+            return dateFormatter1.date(from: completeDate) ?? dateFormatter2.date(from: completeDate)
         })
-        let endDate = end.flatMap({
-             dateFormatter1.date(from: $0) ?? dateFormatter2.date(from: $0)
+        let endDate: Date? = end.flatMap({
+            let completeDate = dateString + "T" + $0
+            return dateFormatter1.date(from: completeDate) ?? dateFormatter2.date(from: completeDate)
         })
         return (startDate, endDate, remainingText)
     }
@@ -131,6 +172,16 @@ class ViewController: UIViewController {
 // MARK: UITableViewDataSource
 extension ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        let count = self.data.count
+        if count == 0 {
+            let label = UILabel(frame: tableView.bounds)
+            label.textColor = .black
+            label.text = "No Data"
+            label.textAlignment = .center
+            tableView.backgroundView = label
+        }else {
+            tableView.backgroundView = nil
+        }
         return self.data.count
     }
     

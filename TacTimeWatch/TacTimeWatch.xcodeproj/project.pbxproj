@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F19590F201C14EC007E82AE /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F19590E201C14EC007E82AE /* DateExtension.swift */; };
 		1F3E959A2018D66400B5BD84 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3E95992018D66400B5BD84 /* AppDelegate.swift */; };
 		1F3E959C2018D66400B5BD84 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3E959B2018D66400B5BD84 /* ViewController.swift */; };
 		1F3E959F2018D66400B5BD84 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F3E959D2018D66400B5BD84 /* Main.storyboard */; };
@@ -70,6 +71,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1F19590E201C14EC007E82AE /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		1F3E95962018D66400B5BD84 /* TacTimeWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TacTimeWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F3E95992018D66400B5BD84 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1F3E959B2018D66400B5BD84 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -148,6 +150,7 @@
 				1F3E95A52018D66400B5BD84 /* Info.plist */,
 				1F3E95ED201900A100B5BD84 /* WatchDataTableViewCell.swift */,
 				1F3E95D72018E2FE00B5BD84 /* WatchCoreDataModel.xcdatamodeld */,
+				1F19590E201C14EC007E82AE /* DateExtension.swift */,
 			);
 			path = TacTimeWatch;
 			sourceTree = "<group>";
@@ -313,6 +316,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1F3E95D92018E2FE00B5BD84 /* WatchCoreDataModel.xcdatamodeld in Sources */,
+				1F19590F201C14EC007E82AE /* DateExtension.swift in Sources */,
 				1F3E95EE201900A100B5BD84 /* WatchDataTableViewCell.swift in Sources */,
 				1F3E95EC2018FDA300B5BD84 /* WatchDataModel+CoreDataClass.swift in Sources */,
 				1F3E959C2018D66400B5BD84 /* ViewController.swift in Sources */,
