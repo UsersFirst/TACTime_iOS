@@ -44,7 +44,7 @@ class ViewController: UIViewController {
         self.tableView.addGestureRecognizer(rightSwipeGesture)
         self.tableView.addGestureRecognizer(leftSwipeGesture)
         
-        ["7 AM to 8 PM work at office", "8 PM to 9:15 PM workout at gym", "9:20 PM to 10 PM Watch tv"].forEach(parseAndSave)
+//        ["7 AM to 8 PM work at office", "8 PM to 9:15 PM workout at gym", "9:20 PM to 10 PM Watch tv"].forEach(parseAndSave)
     }
     
     @objc private func swipped(_ gesture: UISwipeGestureRecognizer) {

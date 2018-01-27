@@ -13,6 +13,7 @@ class WatchDataTableViewCell: UITableViewCell {
     @IBOutlet weak var startDateLabel: UILabel!
     @IBOutlet weak var endDateLabel: UILabel!
     @IBOutlet weak var noteLabel: UILabel!
+    @IBOutlet weak var originalTextLabel: UILabel!
     
     var data: WatchDataModel? {
         didSet {
@@ -22,6 +23,7 @@ class WatchDataTableViewCell: UITableViewCell {
             self.endDateLabel.text = (data?.endDate).map({formatter.string(from: $0 as Date)})
             self.startDateLabel.text = (data?.startDate).map({formatter.string(from: $0 as Date)})
             self.noteLabel.text = data?.note
+            self.originalTextLabel.text = data?.text
         }
     }
 }
