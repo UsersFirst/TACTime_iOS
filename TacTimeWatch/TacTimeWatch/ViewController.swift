@@ -105,7 +105,7 @@ class ViewController: UIViewController {
         model.note = dates.2
         
         do {
-//            try managedContext.save()
+            try managedContext.save()
             self.data.append(model)
             self.tableView.reloadData()
         } catch let error as NSError {
