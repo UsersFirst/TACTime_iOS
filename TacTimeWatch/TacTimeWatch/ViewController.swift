@@ -27,6 +27,7 @@ class ViewController: UIViewController {
             fetchData()
         }
     }
+    private let chrono = Chrono.shared
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,7 +45,8 @@ class ViewController: UIViewController {
         self.tableView.addGestureRecognizer(rightSwipeGesture)
         self.tableView.addGestureRecognizer(leftSwipeGesture)
         
-//        ["7 AM to 8 PM work at office", "8 PM to 9:15 PM workout at gym", "9:20 PM to 10 PM Watch tv"].forEach(parseAndSave)
+        ["7 AM to 8 PM work at office", "8 PM to 9:15 PM workout at gym", "9:20 PM to 10 PM Watch tv", "Talked with Pete yesterday 2AM to 3:15AM", "a day before yesterday I was working with my friend at 8 AM", "7:23 AM to 8:48 PM got ready for work", "yesterday 10:30 PM to 645 today got some sleep", "723 to 8:48 PM got ready for work", "723 to 8:48 AM should get ready for work"].forEach(parseAndSave)
+       
     }
     
     @objc private func swipped(_ gesture: UISwipeGestureRecognizer) {
@@ -103,7 +105,7 @@ class ViewController: UIViewController {
         model.note = dates.2
         
         do {
-            try managedContext.save()
+//            try managedContext.save()
             self.data.append(model)
             self.tableView.reloadData()
         } catch let error as NSError {
@@ -112,35 +114,41 @@ class ViewController: UIViewController {
     }
     
     private func getStartTimeAndEndTime(text: String) -> (Date?, Date?, String?) {
-        let newText = textReplacingMultipleSpaces(text: text)
-        let startToEndTime = matches(for: "((((^([0-9]|0[0-9]|1[0-9])| ([0-9]|0[0-9]|1[0-9])))|(([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9])) (AM|PM)) to (((([0-9]|0[0-9]|1[0-9])| ([0-9]|0[0-9]|1[0-9]))|(([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9])) (AM|PM))", in: newText)
-        let splitted = startToEndTime.first?.components(separatedBy: " to ")
-        let start = splitted?.first?.trimmingCharacters(in: .whitespacesAndNewlines)
-        let end = splitted?.last?.trimmingCharacters(in: .whitespacesAndNewlines)
-        let remainingText = startToEndTime.first.map({text.components(separatedBy: $0)})?.last?.trimmingCharacters(in: .whitespacesAndNewlines)
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd/MM/yyyy"
-        dateFormatter.locale = Locale(identifier: "en_US")
-        let dateString = dateFormatter.string(from: Date())
-        
-        let dateFormatter1 = DateFormatter()
-        dateFormatter1.dateFormat = "dd/MM/yyyy'T'h:mm a"
-        dateFormatter1.locale = Locale(identifier: "en_US")
-        
-        let dateFormatter2 = DateFormatter()
-        dateFormatter2.dateFormat = "dd/MM/yyyy'T'h a"
-        dateFormatter2.locale = Locale(identifier: "en_US")
-        
-        let startDate: Date? = start.flatMap({
-            let completeDate = dateString + "T" + $0
-            return dateFormatter1.date(from: completeDate) ?? dateFormatter2.date(from: completeDate)
-        })
-        let endDate: Date? = end.flatMap({
-            let completeDate = dateString + "T" + $0
-            return dateFormatter1.date(from: completeDate) ?? dateFormatter2.date(from: completeDate)
-        })
-        return (startDate, endDate, remainingText)
+//        return (nil, nil, nil)
+        let result = chrono.parsedResultsFrom(naturalLanguageString: text, referenceDate: nil)
+        let startDate = result.startDate
+        let endDate = result.endDate
+        let ignoredText = result.ignoredText
+        return (startDate, endDate, ignoredText)
+//        let newText = textReplacingMultipleSpaces(text: text)
+//        let startToEndTime = matches(for: "((((^([0-9]|0[0-9]|1[0-9])| ([0-9]|0[0-9]|1[0-9])))|(([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9])) (AM|PM)) to (((([0-9]|0[0-9]|1[0-9])| ([0-9]|0[0-9]|1[0-9]))|(([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9])) (AM|PM))", in: newText)
+//        let splitted = startToEndTime.first?.components(separatedBy: " to ")
+//        let start = splitted?.first?.trimmingCharacters(in: .whitespacesAndNewlines)
+//        let end = splitted?.last?.trimmingCharacters(in: .whitespacesAndNewlines)
+//        let remainingText = startToEndTime.first.map({text.components(separatedBy: $0)})?.last?.trimmingCharacters(in: .whitespacesAndNewlines)
+//
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "dd/MM/yyyy"
+//        dateFormatter.locale = Locale(identifier: "en_US")
+//        let dateString = dateFormatter.string(from: Date())
+//
+//        let dateFormatter1 = DateFormatter()
+//        dateFormatter1.dateFormat = "dd/MM/yyyy'T'h:mm a"
+//        dateFormatter1.locale = Locale(identifier: "en_US")
+//
+//        let dateFormatter2 = DateFormatter()
+//        dateFormatter2.dateFormat = "dd/MM/yyyy'T'h a"
+//        dateFormatter2.locale = Locale(identifier: "en_US")
+//
+//        let startDate: Date? = start.flatMap({
+//            let completeDate = dateString + "T" + $0
+//            return dateFormatter1.date(from: completeDate) ?? dateFormatter2.date(from: completeDate)
+//        })
+//        let endDate: Date? = end.flatMap({
+//            let completeDate = dateString + "T" + $0
+//            return dateFormatter1.date(from: completeDate) ?? dateFormatter2.date(from: completeDate)
+//        })
+//        return (startDate, endDate, remainingText)
     }
     
     private func matches(for regex: String, in text: String) -> [String] {

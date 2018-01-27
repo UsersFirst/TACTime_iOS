@@ -18,7 +18,7 @@ class WatchDataTableViewCell: UITableViewCell {
     var data: WatchDataModel? {
         didSet {
             let formatter = DateFormatter()
-            formatter.dateFormat = "h:mm a"
+            formatter.dateFormat = "E, dd MMM, yyyy h:mm a"
             formatter.locale = Locale(identifier: "en_US")
             self.endDateLabel.text = (data?.endDate).map({formatter.string(from: $0 as Date)})
             self.startDateLabel.text = (data?.startDate).map({formatter.string(from: $0 as Date)})

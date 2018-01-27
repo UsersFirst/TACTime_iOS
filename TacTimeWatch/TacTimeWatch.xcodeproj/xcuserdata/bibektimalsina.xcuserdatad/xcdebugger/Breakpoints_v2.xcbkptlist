@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TacTimeWatch/ViewController.swift"
-            timestampString = "538715034.849088"
+            timestampString = "538718656.867232"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "76"
-            endingLineNumber = "76"
+            startingLineNumber = "78"
+            endingLineNumber = "78"
             landmarkName = "fetchData()"
             landmarkType = "7">
          </BreakpointContent>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TacTimeWatch/ViewController.swift"
-            timestampString = "538715034.849265"
+            timestampString = "538718656.868012"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "66"
-            endingLineNumber = "66"
+            startingLineNumber = "68"
+            endingLineNumber = "68"
             landmarkName = "fetchData()"
             landmarkType = "7">
          </BreakpointContent>
@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TacTimeWatch/ViewController.swift"
-            timestampString = "538715034.84937"
+            timestampString = "538718656.86856"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "70"
-            endingLineNumber = "70"
+            startingLineNumber = "72"
+            endingLineNumber = "72"
             landmarkName = "fetchData()"
             landmarkType = "7">
          </BreakpointContent>
@@ -58,7 +58,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TacTimeWatch/WatchDataTableViewCell.swift"
-            timestampString = "538715034.849465"
+            timestampString = "538718656.868992"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "24"
@@ -74,11 +74,11 @@
                   moduleName = "TacTimeWatch"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Projects/TACTime_iOS/TacTimeWatch/TacTimeWatch/WatchDataTableViewCell.swift"
-                  timestampString = "538712730.255367"
+                  timestampString = "538717134.355579"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "23"
-                  endingLineNumber = "23"
+                  startingLineNumber = "24"
+                  endingLineNumber = "24"
                   offsetFromSymbolStart = "1326">
                </Location>
                <Location
@@ -89,14 +89,30 @@
                   moduleName = "TacTimeWatch"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Projects/TACTime_iOS/TacTimeWatch/TacTimeWatch/WatchDataTableViewCell.swift"
-                  timestampString = "538712730.261122"
+                  timestampString = "538717134.358083"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "23"
-                  endingLineNumber = "23"
+                  startingLineNumber = "24"
+                  endingLineNumber = "24"
                   offsetFromSymbolStart = "16">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TacTimeWatch/ViewController.swift"
+            timestampString = "538718656.869154"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "122"
+            endingLineNumber = "122"
+            landmarkName = "getStartTimeAndEndTime(text:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
