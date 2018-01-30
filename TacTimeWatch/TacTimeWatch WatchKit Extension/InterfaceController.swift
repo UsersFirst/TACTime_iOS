@@ -47,9 +47,11 @@ class InterfaceController: WKInterfaceController {
                     //Send Data to iOS
                     if self.session.isReachable {
                         let msg = ["INPUT" : aResult]
-                        self.session.sendMessage(msg, replyHandler: nil, errorHandler: { (error) in
-                            print("MESSAGE SEND FAILED \(error.localizedDescription)")
-                        })
+                        DispatchQueue.main.async {
+                            self.session.sendMessage(msg, replyHandler: nil, errorHandler: { (error) in
+                                print("MESSAGE SEND FAILED \(error.localizedDescription)")
+                            })
+                        }
                     }else {
                         print("SESSION UNREACHABLE")
                     }

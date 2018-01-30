@@ -15,7 +15,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var dateLabel: UILabel!
     
-    private let session = WCSession.default
     private var data: [WatchDataModel] = [] {
         didSet {
             self.tableView.reloadData()
@@ -31,8 +30,24 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        session.delegate = self
-        session.activate()
+        if WCSession.isSupported() {
+            
+            let session = WCSession.default
+            if !session.isPaired {
+                self.alert(msg: "Watch not paired.", title: "Error")
+                return
+            }
+            
+            if !session.isWatchAppInstalled {
+                self.alert(msg: "Watch app not installed", title: "Error")
+                return
+            }
+            
+            session.delegate = self
+            session.activate()
+        }else {
+            self.alert(msg: "Watch Connectivity not supported in your device.", title: "Error")
+        }
         
         setDate()
         
@@ -47,6 +62,13 @@ class ViewController: UIViewController {
         
         ["7 AM to 8 PM work at office", "8 PM to 9:15 PM workout at gym", "9:20 PM to 10 PM Watch tv", "Talked with Pete yesterday 2AM to 3:15AM", "a day before yesterday I was working with my friend at 8 AM", "7:23 AM to 8:48 PM got ready for work", "yesterday 10:30 PM to 645 today got some sleep", "723 to 8:48 PM got ready for work", "723 to 8:48 AM should get ready for work"].forEach(parseAndSave)
        
+    }
+    
+    func alert(msg: String, title: String) {
+        let alert = UIAlertController(title: title, message: msg, preferredStyle: .alert)
+        let action = UIAlertAction(title: "Ok", style: .default, handler: nil)
+        alert.addAction(action)
+        self.present(alert, animated: false, completion: nil)
     }
     
     @objc private func swipped(_ gesture: UISwipeGestureRecognizer) {
