@@ -135,5 +135,20 @@
             </objects>
             <point key="canvasLocation" x="140" y="119.1904047976012"/>
         </scene>
+        <!--Settings View Controller-->
+        <scene sceneID="5H9-ip-032">
+            <objects>
+                <viewController id="CWR-Yj-UsV" customClass="SettingsViewController" customModule="TacTimeWatch" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Rhi-19-Ero">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="XTl-4X-MLg"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="geq-no-WbX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="852" y="195"/>
+        </scene>
     </scenes>
 </document>

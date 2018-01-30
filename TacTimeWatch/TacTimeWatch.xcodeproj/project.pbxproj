@@ -31,6 +31,7 @@
 		1F3E95EB2018FDA300B5BD84 /* WatchDataModel+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3E95E62018E7B300B5BD84 /* WatchDataModel+CoreDataProperties.swift */; };
 		1F3E95EC2018FDA300B5BD84 /* WatchDataModel+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3E95E52018E7B300B5BD84 /* WatchDataModel+CoreDataClass.swift */; };
 		1F3E95EE201900A100B5BD84 /* WatchDataTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3E95ED201900A100B5BD84 /* WatchDataTableViewCell.swift */; };
+		1F7AFC8F2020B38E00E6BA9C /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7AFC8E2020B38E00E6BA9C /* SettingsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -106,6 +107,7 @@
 		1F3E95E52018E7B300B5BD84 /* WatchDataModel+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WatchDataModel+CoreDataClass.swift"; sourceTree = "<group>"; };
 		1F3E95E62018E7B300B5BD84 /* WatchDataModel+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WatchDataModel+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		1F3E95ED201900A100B5BD84 /* WatchDataTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchDataTableViewCell.swift; sourceTree = "<group>"; };
+		1F7AFC8E2020B38E00E6BA9C /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,6 +184,7 @@
 				1F3E95D72018E2FE00B5BD84 /* WatchCoreDataModel.xcdatamodeld */,
 				1F19590E201C14EC007E82AE /* DateExtension.swift */,
 				1F195910201C26FB007E82AE /* Datefinder.swift */,
+				1F7AFC8E2020B38E00E6BA9C /* SettingsViewController.swift */,
 			);
 			path = TacTimeWatch;
 			sourceTree = "<group>";
@@ -350,6 +353,7 @@
 			files = (
 				1F19591D201C2AB4007E82AE /* ChronoParsedResult.swift in Sources */,
 				1F3E95D92018E2FE00B5BD84 /* WatchCoreDataModel.xcdatamodeld in Sources */,
+				1F7AFC8F2020B38E00E6BA9C /* SettingsViewController.swift in Sources */,
 				1F195911201C26FB007E82AE /* Datefinder.swift in Sources */,
 				1F19590F201C14EC007E82AE /* DateExtension.swift in Sources */,
 				1F3E95EE201900A100B5BD84 /* WatchDataTableViewCell.swift in Sources */,
