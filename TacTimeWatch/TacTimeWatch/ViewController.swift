@@ -10,7 +10,7 @@ import UIKit
 import WatchConnectivity
 import CoreData
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, SettingDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var dateLabel: UILabel!
@@ -20,16 +20,43 @@ class ViewController: UIViewController {
             self.tableView.reloadData()
         }
     }
-    private var date: Date = Date() {
+    private var fromDate: Date = Date().startOfDay
+//    {
+//        didSet {
+//            setDate()
+//            fetchData()
+//        }
+//    }
+    
+    private var toDate: Date = Date().endOfDay! {
         didSet {
             setDate()
             fetchData()
         }
     }
+    
     private let chrono = Chrono.shared
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setDate()
+        
+        tableView.dataSource = self
+        tableView.tableFooterView = UIView()
+        
+        let rightSwipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(self.swipped(_:)))
+        let leftSwipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(self.swipped(_:)))
+        leftSwipeGesture.direction = .left
+        self.tableView.addGestureRecognizer(rightSwipeGesture)
+        self.tableView.addGestureRecognizer(leftSwipeGesture)
+        
+        ["7 AM to 8 PM work at office", "8 PM to 9:15 PM workout at gym", "9:20 PM to 10 PM Watch tv", "Talked with Pete yesterday 2AM to 3:15AM", "a day before yesterday I was working with my friend at 8 AM", "7:23 AM to 8:48 PM got ready for work", "yesterday 10:30 PM to 645 today got some sleep", "723 to 8:48 PM got ready for work", "723 to 8:48 AM should get ready for work"].forEach(parseAndSave)
+       
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
         if WCSession.isSupported() {
             
             let session = WCSession.default
@@ -47,21 +74,8 @@ class ViewController: UIViewController {
             session.activate()
         }else {
             self.alert(msg: "Watch Connectivity not supported in your device.", title: "Error")
+            return
         }
-        
-        setDate()
-        
-        tableView.dataSource = self
-        tableView.tableFooterView = UIView()
-        
-        let rightSwipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(self.swipped(_:)))
-        let leftSwipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(self.swipped(_:)))
-        leftSwipeGesture.direction = .left
-        self.tableView.addGestureRecognizer(rightSwipeGesture)
-        self.tableView.addGestureRecognizer(leftSwipeGesture)
-        
-        ["7 AM to 8 PM work at office", "8 PM to 9:15 PM workout at gym", "9:20 PM to 10 PM Watch tv", "Talked with Pete yesterday 2AM to 3:15AM", "a day before yesterday I was working with my friend at 8 AM", "7:23 AM to 8:48 PM got ready for work", "yesterday 10:30 PM to 645 today got some sleep", "723 to 8:48 PM got ready for work", "723 to 8:48 AM should get ready for work"].forEach(parseAndSave)
-       
     }
     
     func alert(msg: String, title: String) {
@@ -71,19 +85,31 @@ class ViewController: UIViewController {
         self.present(alert, animated: false, completion: nil)
     }
     
+    @IBAction func settings(_ sender: Any) {
+        guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "SettingsViewController") as? SettingsViewController else {return}
+        vc.delegate = self
+        self.present(vc, animated: true, completion: nil)
+    }
+    
+    func filter(from: Date, to: Date) {
+        self.fromDate = from.startOfDay
+        self.toDate = to.endOfDay!
+    }
+    
     @objc private func swipped(_ gesture: UISwipeGestureRecognizer) {
         if gesture.state == .ended {
             let multiplier: Double = gesture.direction.contains(.left) ? 1 : -1
-            self.date = self.date.addingTimeInterval(24*60*60*multiplier)
+            self.fromDate = self.fromDate.addingTimeInterval(24*60*60*multiplier)
+            self.toDate = self.toDate.addingTimeInterval(24*60*60*multiplier)
             self.fetchData()
         }
     }
     
     private func setDate() {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "E, dd MMM, YYYY"
-        dateFormatter.locale = Locale(identifier: "en_US")
-        self.dateLabel.text = dateFormatter.string(from: self.date)
+        self.dateLabel.text = DateFormatter.toString(date: self.fromDate)
+        if abs(self.fromDate.timeIntervalSince(self.toDate)) > 24*60*60 {
+            self.dateLabel.text = self.dateLabel.text! + " to " + DateFormatter.toString(date: self.toDate)
+        }
     }
     
     private func fetchData() {
@@ -95,7 +121,7 @@ class ViewController: UIViewController {
             appDelegate.persistentContainer.viewContext
         let fetchRequest =
             NSFetchRequest<NSManagedObject>(entityName: "WatchDataModel")
-        fetchRequest.predicate = NSPredicate(format: "(startDate >= %@) AND (startDate <= %@)", argumentArray: [date.startOfDay as NSDate, date.endOfDay! as NSDate])
+        fetchRequest.predicate = NSPredicate(format: "(startDate >= %@) AND (startDate <= %@)", argumentArray: [fromDate as NSDate, toDate as NSDate])
         do {
             data = try managedContext.fetch(fetchRequest) as! [WatchDataModel]
         } catch let error as NSError {
@@ -142,35 +168,6 @@ class ViewController: UIViewController {
         let endDate = result.endDate
         let ignoredText = result.ignoredText
         return (startDate, endDate, ignoredText)
-//        let newText = textReplacingMultipleSpaces(text: text)
-//        let startToEndTime = matches(for: "((((^([0-9]|0[0-9]|1[0-9])| ([0-9]|0[0-9]|1[0-9])))|(([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9])) (AM|PM)) to (((([0-9]|0[0-9]|1[0-9])| ([0-9]|0[0-9]|1[0-9]))|(([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9])) (AM|PM))", in: newText)
-//        let splitted = startToEndTime.first?.components(separatedBy: " to ")
-//        let start = splitted?.first?.trimmingCharacters(in: .whitespacesAndNewlines)
-//        let end = splitted?.last?.trimmingCharacters(in: .whitespacesAndNewlines)
-//        let remainingText = startToEndTime.first.map({text.components(separatedBy: $0)})?.last?.trimmingCharacters(in: .whitespacesAndNewlines)
-//
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "dd/MM/yyyy"
-//        dateFormatter.locale = Locale(identifier: "en_US")
-//        let dateString = dateFormatter.string(from: Date())
-//
-//        let dateFormatter1 = DateFormatter()
-//        dateFormatter1.dateFormat = "dd/MM/yyyy'T'h:mm a"
-//        dateFormatter1.locale = Locale(identifier: "en_US")
-//
-//        let dateFormatter2 = DateFormatter()
-//        dateFormatter2.dateFormat = "dd/MM/yyyy'T'h a"
-//        dateFormatter2.locale = Locale(identifier: "en_US")
-//
-//        let startDate: Date? = start.flatMap({
-//            let completeDate = dateString + "T" + $0
-//            return dateFormatter1.date(from: completeDate) ?? dateFormatter2.date(from: completeDate)
-//        })
-//        let endDate: Date? = end.flatMap({
-//            let completeDate = dateString + "T" + $0
-//            return dateFormatter1.date(from: completeDate) ?? dateFormatter2.date(from: completeDate)
-//        })
-//        return (startDate, endDate, remainingText)
     }
     
     private func matches(for regex: String, in text: String) -> [String] {

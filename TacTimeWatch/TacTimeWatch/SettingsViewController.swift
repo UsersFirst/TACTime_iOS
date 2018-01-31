@@ -8,28 +8,55 @@
 
 import UIKit
 
-class SettingsViewController: UIViewController {
+protocol SettingDelegate:class {
+    func filter(from: Date, to: Date)
+}
 
+class SettingsViewController: UIViewController {
+    @IBOutlet weak var fromTextField: UITextField!
+    @IBOutlet weak var toTextField: UITextField!
+    
+    let fromDatePicker: UIDatePicker = UIDatePicker()
+    let toDatePicker: UIDatePicker = UIDatePicker()
+    
+    weak var delegate: SettingDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        self.fromDatePicker.maximumDate = Date()
+        self.fromDatePicker.datePickerMode = .date
+        self.fromDatePicker.locale = Locale(identifier: "en_US")
+        self.fromDatePicker.addTarget(self, action: #selector(self.fromDatePicked), for: .valueChanged)
+        self.fromTextField.inputView = fromDatePicker
+        
+        self.toDatePicker.maximumDate = Date()
+        self.toDatePicker.datePickerMode = .date
+        self.toDatePicker.locale = Locale(identifier: "en_US")
+        self.toDatePicker.addTarget(self, action: #selector(self.toDatePicked), for: .valueChanged)
+        self.toTextField.inputView = toDatePicker
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    @objc func fromDatePicked() {
+        self.fromTextField.text = DateFormatter.toString(date: fromDatePicker.date)
     }
-    */
-
+    
+    @objc func toDatePicked() {
+        self.toTextField.text = DateFormatter.toString(date: toDatePicker.date)
+    }
+    
+    @IBAction func filter(_ sender: Any) {
+        fromDatePicked()
+        toDatePicked()
+        self.delegate?.filter(from: fromDatePicker.date, to: toDatePicker.date)
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func export(_ sender: Any) {
+        
+    }
+    
+    @IBAction func close(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
 }
