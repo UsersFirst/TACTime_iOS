@@ -78,13 +78,6 @@ class ViewController: UIViewController, SettingDelegate {
         }
     }
     
-    func alert(msg: String, title: String) {
-        let alert = UIAlertController(title: title, message: msg, preferredStyle: .alert)
-        let action = UIAlertAction(title: "Ok", style: .default, handler: nil)
-        alert.addAction(action)
-        self.present(alert, animated: false, completion: nil)
-    }
-    
     @IBAction func settings(_ sender: Any) {
         guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "SettingsViewController") as? SettingsViewController else {return}
         vc.delegate = self
@@ -92,8 +85,8 @@ class ViewController: UIViewController, SettingDelegate {
     }
     
     func filter(from: Date, to: Date) {
-        self.fromDate = from.startOfDay
-        self.toDate = to.endOfDay!
+        self.fromDate = from
+        self.toDate = to
     }
     
     @objc private func swipped(_ gesture: UISwipeGestureRecognizer) {
@@ -122,6 +115,7 @@ class ViewController: UIViewController, SettingDelegate {
         let fetchRequest =
             NSFetchRequest<NSManagedObject>(entityName: "WatchDataModel")
         fetchRequest.predicate = NSPredicate(format: "(startDate >= %@) AND (startDate <= %@)", argumentArray: [fromDate as NSDate, toDate as NSDate])
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "startDate", ascending: true)]
         do {
             data = try managedContext.fetch(fetchRequest) as! [WatchDataModel]
         } catch let error as NSError {
@@ -239,6 +233,15 @@ extension ViewController: WCSessionDelegate {
     
     func sessionDidDeactivate(_ session: WCSession) {
         
+    }
+}
+
+extension UIViewController {
+    func alert(msg: String, title: String) {
+        let alert = UIAlertController(title: title, message: msg, preferredStyle: .alert)
+        let action = UIAlertAction(title: "Ok", style: .default, handler: nil)
+        alert.addAction(action)
+        self.present(alert, animated: false, completion: nil)
     }
 }
 

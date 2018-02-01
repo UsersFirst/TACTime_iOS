@@ -15,6 +15,7 @@
 		1F19591F201C2AB4007E82AE /* Chrono.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F19591C201C2AB4007E82AE /* Chrono.swift */; };
 		1F1C1B9A202235760043B1B0 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1C1B99202235760043B1B0 /* SettingsViewController.swift */; };
 		1F1C1B9C2022372A0043B1B0 /* DateFormatterExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1C1B9B2022372A0043B1B0 /* DateFormatterExtension.swift */; };
+		1F1C1B9E20236B640043B1B0 /* WatchDataModelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1C1B9D20236B640043B1B0 /* WatchDataModelExtension.swift */; };
 		1F3E959A2018D66400B5BD84 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3E95992018D66400B5BD84 /* AppDelegate.swift */; };
 		1F3E959C2018D66400B5BD84 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3E959B2018D66400B5BD84 /* ViewController.swift */; };
 		1F3E959F2018D66400B5BD84 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F3E959D2018D66400B5BD84 /* Main.storyboard */; };
@@ -86,6 +87,7 @@
 		1F19591C201C2AB4007E82AE /* Chrono.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chrono.swift; sourceTree = "<group>"; };
 		1F1C1B99202235760043B1B0 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		1F1C1B9B2022372A0043B1B0 /* DateFormatterExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterExtension.swift; sourceTree = "<group>"; };
+		1F1C1B9D20236B640043B1B0 /* WatchDataModelExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchDataModelExtension.swift; sourceTree = "<group>"; };
 		1F3E95962018D66400B5BD84 /* TacTimeWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TacTimeWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F3E95992018D66400B5BD84 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1F3E959B2018D66400B5BD84 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -188,6 +190,7 @@
 				1F19590E201C14EC007E82AE /* DateExtension.swift */,
 				1F195910201C26FB007E82AE /* Datefinder.swift */,
 				1F1C1B9B2022372A0043B1B0 /* DateFormatterExtension.swift */,
+				1F1C1B9D20236B640043B1B0 /* WatchDataModelExtension.swift */,
 			);
 			path = TacTimeWatch;
 			sourceTree = "<group>";
@@ -355,6 +358,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1F19591D201C2AB4007E82AE /* ChronoParsedResult.swift in Sources */,
+				1F1C1B9E20236B640043B1B0 /* WatchDataModelExtension.swift in Sources */,
 				1F3E95D92018E2FE00B5BD84 /* WatchCoreDataModel.xcdatamodeld in Sources */,
 				1F1C1B9C2022372A0043B1B0 /* DateFormatterExtension.swift in Sources */,
 				1F1C1B9A202235760043B1B0 /* SettingsViewController.swift in Sources */,
