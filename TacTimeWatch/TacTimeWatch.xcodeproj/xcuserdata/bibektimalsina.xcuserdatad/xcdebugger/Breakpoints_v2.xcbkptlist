@@ -15,7 +15,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "97"
             endingLineNumber = "97"
-            landmarkName = "setDate()"
+            landmarkName = "swipped(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -50,7 +50,7 @@ class ViewController: UIViewController, SettingDelegate {
         self.tableView.addGestureRecognizer(rightSwipeGesture)
         self.tableView.addGestureRecognizer(leftSwipeGesture)
         
-        ["7 AM to 8 PM work at office", "8 PM to 9:15 PM workout at gym", "9:20 PM to 10 PM Watch tv", "Talked with Pete yesterday 2AM to 3:15AM", "a day before yesterday I was working with my friend at 8 AM", "7:23 AM to 8:48 PM got ready for work", "yesterday 10:30 PM to 645 today got some sleep", "723 to 8:48 PM got ready for work", "723 to 8:48 AM should get ready for work"].forEach(parseAndSave)
+//        ["7 AM to 8 PM work at office", "8 PM to 9:15 PM workout at gym", "9:20 PM to 10 PM Watch tv", "Talked with Pete yesterday 2AM to 3:15AM", "a day before yesterday I was working with my friend at 8 AM", "7:23 AM to 8:48 PM got ready for work", "yesterday 10:30 PM to 645 today got some sleep", "723 to 8:48 PM got ready for work", "723 to 8:48 AM should get ready for work"].forEach(parseAndSave)
        
     }
     
