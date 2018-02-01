@@ -22,7 +22,5 @@ extension WatchDataModel {
     @NSManaged public var startDate: NSDate?
     @NSManaged public var text: String?
     @NSManaged public var alarm: Bool
-    @NSManaged public var completed: NSDate?
-    @NSManaged public var reminderId: String?
 
 }

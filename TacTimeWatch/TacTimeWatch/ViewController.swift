@@ -12,7 +12,7 @@ import CoreData
 import  EventKit
 
 class ViewController: UIViewController, SettingDelegate {
-
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var dateLabel: UILabel!
     
@@ -48,7 +48,7 @@ class ViewController: UIViewController, SettingDelegate {
         self.tableView.addGestureRecognizer(leftSwipeGesture)
         
         self.fetchData()
-//        self.parseAndSave(text: "Call raja at 10:36 PM")
+        self.parseAndSave(text: "Call raja at 10:36 PM")
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -134,7 +134,7 @@ class ViewController: UIViewController, SettingDelegate {
                                        in: managedContext)!
         
         let model = WatchDataModel(entity: entity,
-                                     insertInto: managedContext)
+                                   insertInto: managedContext)
         
         let dates = getStartTimeAndEndTime(text: text)
         
@@ -142,6 +142,7 @@ class ViewController: UIViewController, SettingDelegate {
         model.startDate = dates.0 as NSDate?
         model.endDate = dates.1 as NSDate?
         model.note = dates.2
+        model.alarm = true
         
         do {
             try managedContext.save()
@@ -176,7 +177,8 @@ class ViewController: UIViewController, SettingDelegate {
                 }
                 do {
                     try self.eventStore.save(reminder, commit: true)
-                }catch{
+                    model.reminderId = reminder.calendarItemExternalIdentifier
+                }catch {
                     print("Error creating and saving new reminder : \(error)")
                 }
             }else {
@@ -185,30 +187,35 @@ class ViewController: UIViewController, SettingDelegate {
         })
     }
     
-    private func matches(for regex: String, in text: String) -> [String] {
-        do {
-            let regex = try NSRegularExpression(pattern: regex)
-            let results = regex.matches(in: text,
-                                        range: NSRange(text.startIndex..., in: text))
-            return results.map {
-                String(text[Range($0.range, in: text)!])
-            }
-        } catch let error {
-            print("invalid regex: \(error.localizedDescription)")
-            return []
-        }
-    }
-    
-   private func textReplacingMultipleSpaces(text: String) -> String {
-        let matched = matches(for: "\\s+", in: text).sorted(by: {$0.count > $1.count})
-        var newText = text
-        matched.forEach({
-            if $0.count > 1 {
-                newText = newText.replacingOccurrences(of: $0, with: " ")
+    private func addOrRemoveAlarm(model: WatchDataModel) {
+        guard let reminderId = model.reminderId else {return}
+        self.eventStore.requestAccess(to: EKEntityType.reminder, completion: {
+            (granted,error) in
+            if granted {
+                let reminder = self.eventStore.calendarItems(withExternalIdentifier: reminderId).first
+                if model.alarm {
+                    if let alarm = model.startDate.map({EKAlarm(absoluteDate: $0 as Date)}) {
+                        reminder?.addAlarm(alarm)
+                    }
+                }else {
+                    reminder?.alarms = []
+                }
             }
         })
-        return newText
     }
+    
+    private func setComplete(model: WatchDataModel) {
+        guard let reminderId = model.reminderId else {return}
+        self.eventStore.requestAccess(to: EKEntityType.reminder, completion: {
+            (granted,error) in
+            if granted {
+                let reminder = self.eventStore.calendarItems(withExternalIdentifier: reminderId).first as? EKReminder
+                reminder?.isCompleted = true
+                reminder?.completionDate = model.completed as Date?
+            }
+        })
+    }
+
 }
 
 // MARK: UITableViewDataSource
@@ -230,6 +237,15 @@ extension ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "WatchDataTableViewCell", for: indexPath) as! WatchDataTableViewCell
         cell.data = self.data[indexPath.row]
+        cell.onAlarm = {[weak self] status in
+            cell.data?.alarm = status
+            self?.addOrRemoveAlarm(model: cell.data!)
+        }
+        cell.onComplete = {[weak self] in
+            cell.data?.completed = Date() as NSDate
+            tableView.reloadData()
+            self?.setComplete(model: cell.data!)
+        }
         return cell
     }
 }
