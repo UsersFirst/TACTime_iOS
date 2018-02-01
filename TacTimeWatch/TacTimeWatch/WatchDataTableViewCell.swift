@@ -29,15 +29,15 @@ class WatchDataTableViewCell: UITableViewCell {
             self.noteLabel.text = data?.note
             self.originalTextLabel.text = data?.text
             self.alarmSwitch.setOn(data?.alarm ?? false, animated: false)
-            self.completedButton.isHidden = self.data?.completed != nil
+//            self.completedButton.isHidden = self.data?.completed != nil
         }
     }
     
     @IBAction func alarmSwitchChanged(_ sender: Any) {
-        onAlarm?(alarmSwitch.isOn)
+//        onAlarm?(alarmSwitch.isOn)
     }
     
     @IBAction func completed(_ sender: Any) {
-        onComplete?()
+//        onComplete?()
     }
 }

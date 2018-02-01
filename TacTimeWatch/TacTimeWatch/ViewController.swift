@@ -48,7 +48,7 @@ class ViewController: UIViewController, SettingDelegate {
         self.tableView.addGestureRecognizer(leftSwipeGesture)
         
         self.fetchData()
-        self.parseAndSave(text: "Call raja at 10:36 PM")
+//        self.parseAndSave(text: "Call hsam at 10:36 PM")
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -177,7 +177,7 @@ class ViewController: UIViewController, SettingDelegate {
                 }
                 do {
                     try self.eventStore.save(reminder, commit: true)
-                    model.reminderId = reminder.calendarItemExternalIdentifier
+                    model.reminderId = reminder.calendarItemIdentifier
                 }catch {
                     print("Error creating and saving new reminder : \(error)")
                 }
@@ -188,30 +188,48 @@ class ViewController: UIViewController, SettingDelegate {
     }
     
     private func addOrRemoveAlarm(model: WatchDataModel) {
-        guard let reminderId = model.reminderId else {return}
         self.eventStore.requestAccess(to: EKEntityType.reminder, completion: {
             (granted,error) in
             if granted {
-                let reminder = self.eventStore.calendarItems(withExternalIdentifier: reminderId).first
+                var reminder = model.reminderId.flatMap {self.eventStore.calendarItems(withExternalIdentifier: $0).first as? EKReminder}
+                if reminder == nil {
+                    self.setReminder(model: model)
+                    if let newReminderId = model.reminderId {
+                        reminder = self.eventStore.calendarItem(withIdentifier: newReminderId) as? EKReminder
+                    }
+                }
                 if model.alarm {
                     if let alarm = model.startDate.map({EKAlarm(absoluteDate: $0 as Date)}) {
                         reminder?.addAlarm(alarm)
                     }
                 }else {
-                    reminder?.alarms = []
+                    reminder?.alarms?.forEach({
+                        reminder?.removeAlarm($0)
+                    })
+                }
+                reminder?.completionDate = model.completed as Date?
+                reminder?.isCompleted = model.completed != nil
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
                 }
             }
         })
     }
     
     private func setComplete(model: WatchDataModel) {
-        guard let reminderId = model.reminderId else {return}
+        
         self.eventStore.requestAccess(to: EKEntityType.reminder, completion: {
             (granted,error) in
             if granted {
-                let reminder = self.eventStore.calendarItems(withExternalIdentifier: reminderId).first as? EKReminder
+                
+                let reminder = model.reminderId.flatMap {self.eventStore.calendarItem(withIdentifier: $0) as? EKReminder}
+                model.alarm = false
+                self.addOrRemoveAlarm(model: model)
                 reminder?.isCompleted = true
                 reminder?.completionDate = model.completed as Date?
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
             }
         })
     }
@@ -238,13 +256,16 @@ extension ViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "WatchDataTableViewCell", for: indexPath) as! WatchDataTableViewCell
         cell.data = self.data[indexPath.row]
         cell.onAlarm = {[weak self] status in
-            cell.data?.alarm = status
-            self?.addOrRemoveAlarm(model: cell.data!)
+            if cell.data?.completed == nil {
+                cell.data?.alarm = status
+                self?.addOrRemoveAlarm(model: cell.data!)
+                tableView.reloadData()
+            }
         }
         cell.onComplete = {[weak self] in
             cell.data?.completed = Date() as NSDate
-            tableView.reloadData()
             self?.setComplete(model: cell.data!)
+            tableView.reloadData()
         }
         return cell
     }
