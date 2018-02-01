@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		1F19590F201C14EC007E82AE /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F19590E201C14EC007E82AE /* DateExtension.swift */; };
-		1F195911201C26FB007E82AE /* Datefinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F195910201C26FB007E82AE /* Datefinder.swift */; };
-		1F195917201C2782007E82AE /* datefinder.py in Resources */ = {isa = PBXBuildFile; fileRef = 1F195916201C2782007E82AE /* datefinder.py */; };
 		1F19591D201C2AB4007E82AE /* ChronoParsedResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F195919201C2AB4007E82AE /* ChronoParsedResult.swift */; };
 		1F19591E201C2AB4007E82AE /* chrono.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F19591B201C2AB4007E82AE /* chrono.min.js */; };
 		1F19591F201C2AB4007E82AE /* Chrono.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F19591C201C2AB4007E82AE /* Chrono.swift */; };
@@ -80,8 +78,6 @@
 
 /* Begin PBXFileReference section */
 		1F19590E201C14EC007E82AE /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
-		1F195910201C26FB007E82AE /* Datefinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Datefinder.swift; sourceTree = "<group>"; };
-		1F195916201C2782007E82AE /* datefinder.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = datefinder.py; sourceTree = "<group>"; };
 		1F195919201C2AB4007E82AE /* ChronoParsedResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChronoParsedResult.swift; sourceTree = "<group>"; };
 		1F19591B201C2AB4007E82AE /* chrono.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = chrono.min.js; sourceTree = "<group>"; };
 		1F19591C201C2AB4007E82AE /* Chrono.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chrono.swift; sourceTree = "<group>"; };
@@ -174,23 +170,21 @@
 		1F3E95982018D66400B5BD84 /* TacTimeWatch */ = {
 			isa = PBXGroup;
 			children = (
-				1F1C1B99202235760043B1B0 /* SettingsViewController.swift */,
-				1F195918201C2AB4007E82AE /* Chrono */,
-				1F195916201C2782007E82AE /* datefinder.py */,
-				1F3E95E52018E7B300B5BD84 /* WatchDataModel+CoreDataClass.swift */,
-				1F3E95E62018E7B300B5BD84 /* WatchDataModel+CoreDataProperties.swift */,
 				1F3E95992018D66400B5BD84 /* AppDelegate.swift */,
-				1F3E959B2018D66400B5BD84 /* ViewController.swift */,
-				1F3E959D2018D66400B5BD84 /* Main.storyboard */,
+				1F3E95D72018E2FE00B5BD84 /* WatchCoreDataModel.xcdatamodeld */,
 				1F3E95A02018D66400B5BD84 /* Assets.xcassets */,
 				1F3E95A22018D66400B5BD84 /* LaunchScreen.storyboard */,
 				1F3E95A52018D66400B5BD84 /* Info.plist */,
-				1F3E95ED201900A100B5BD84 /* WatchDataTableViewCell.swift */,
-				1F3E95D72018E2FE00B5BD84 /* WatchCoreDataModel.xcdatamodeld */,
-				1F19590E201C14EC007E82AE /* DateExtension.swift */,
-				1F195910201C26FB007E82AE /* Datefinder.swift */,
-				1F1C1B9B2022372A0043B1B0 /* DateFormatterExtension.swift */,
+				1F195918201C2AB4007E82AE /* Chrono */,
+				1F3E95E52018E7B300B5BD84 /* WatchDataModel+CoreDataClass.swift */,
+				1F3E95E62018E7B300B5BD84 /* WatchDataModel+CoreDataProperties.swift */,
 				1F1C1B9D20236B640043B1B0 /* WatchDataModelExtension.swift */,
+				1F19590E201C14EC007E82AE /* DateExtension.swift */,
+				1F1C1B9B2022372A0043B1B0 /* DateFormatterExtension.swift */,
+				1F3E959D2018D66400B5BD84 /* Main.storyboard */,
+				1F3E959B2018D66400B5BD84 /* ViewController.swift */,
+				1F3E95ED201900A100B5BD84 /* WatchDataTableViewCell.swift */,
+				1F1C1B99202235760043B1B0 /* SettingsViewController.swift */,
 			);
 			path = TacTimeWatch;
 			sourceTree = "<group>";
@@ -325,7 +319,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1F195917201C2782007E82AE /* datefinder.py in Resources */,
 				1F3E95A42018D66400B5BD84 /* LaunchScreen.storyboard in Resources */,
 				1F3E95A12018D66400B5BD84 /* Assets.xcassets in Resources */,
 				1F3E959F2018D66400B5BD84 /* Main.storyboard in Resources */,
@@ -362,7 +355,6 @@
 				1F3E95D92018E2FE00B5BD84 /* WatchCoreDataModel.xcdatamodeld in Sources */,
 				1F1C1B9C2022372A0043B1B0 /* DateFormatterExtension.swift in Sources */,
 				1F1C1B9A202235760043B1B0 /* SettingsViewController.swift in Sources */,
-				1F195911201C26FB007E82AE /* Datefinder.swift in Sources */,
 				1F19590F201C14EC007E82AE /* DateExtension.swift in Sources */,
 				1F3E95EE201900A100B5BD84 /* WatchDataTableViewCell.swift in Sources */,
 				1F3E95EC2018FDA300B5BD84 /* WatchDataModel+CoreDataClass.swift in Sources */,

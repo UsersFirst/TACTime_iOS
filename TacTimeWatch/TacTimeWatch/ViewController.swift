@@ -9,11 +9,14 @@
 import UIKit
 import WatchConnectivity
 import CoreData
+import  EventKit
 
 class ViewController: UIViewController, SettingDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var dateLabel: UILabel!
+    
+    private let eventStore = EKEventStore()
     
     private var data: [WatchDataModel] = [] {
         didSet {
@@ -21,12 +24,6 @@ class ViewController: UIViewController, SettingDelegate {
         }
     }
     private var fromDate: Date = Date().startOfDay
-//    {
-//        didSet {
-//            setDate()
-//            fetchData()
-//        }
-//    }
     
     private var toDate: Date = Date().endOfDay! {
         didSet {
@@ -50,8 +47,8 @@ class ViewController: UIViewController, SettingDelegate {
         self.tableView.addGestureRecognizer(rightSwipeGesture)
         self.tableView.addGestureRecognizer(leftSwipeGesture)
         
-//        ["7 AM to 8 PM work at office", "8 PM to 9:15 PM workout at gym", "9:20 PM to 10 PM Watch tv", "Talked with Pete yesterday 2AM to 3:15AM", "a day before yesterday I was working with my friend at 8 AM", "7:23 AM to 8:48 PM got ready for work", "yesterday 10:30 PM to 645 today got some sleep", "723 to 8:48 PM got ready for work", "723 to 8:48 AM should get ready for work"].forEach(parseAndSave)
-       
+        self.fetchData()
+//        self.parseAndSave(text: "Call raja at 10:36 PM")
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -149,6 +146,7 @@ class ViewController: UIViewController, SettingDelegate {
         do {
             try managedContext.save()
             self.data.append(model)
+            self.setReminder(model: model)
             self.tableView.reloadData()
         } catch let error as NSError {
             print("Could not save. \(error), \(error.userInfo)")
@@ -156,12 +154,35 @@ class ViewController: UIViewController, SettingDelegate {
     }
     
     private func getStartTimeAndEndTime(text: String) -> (Date?, Date?, String?) {
-//        return (nil, nil, nil)
         let result = chrono.parsedResultsFrom(naturalLanguageString: text, referenceDate: nil)
         let startDate = result.startDate
         let endDate = result.endDate
         let ignoredText = result.ignoredText
         return (startDate, endDate, ignoredText)
+    }
+    
+    private func setReminder(model: WatchDataModel) {
+        let reminder = EKReminder(eventStore: self.eventStore)
+        self.eventStore.requestAccess(to: EKEntityType.reminder, completion: {
+            (granted,error) in
+            if granted == true {
+                reminder.title = model.note ?? "Task"
+                let calendar = NSCalendar.current
+                reminder.startDateComponents = model.startDate.map {calendar.dateComponents([.year, .month, .day, .hour, .minute], from: $0 as Date)}
+                reminder.dueDateComponents = model.endDate.map {calendar.dateComponents([.year, .month, .day, .hour, .minute], from: $0 as Date)}
+                reminder.calendar = self.eventStore.defaultCalendarForNewReminders()
+                if let alarm = model.startDate.map({EKAlarm(absoluteDate: $0 as Date)}) {
+                    reminder.addAlarm(alarm)
+                }
+                do {
+                    try self.eventStore.save(reminder, commit: true)
+                }catch{
+                    print("Error creating and saving new reminder : \(error)")
+                }
+            }else {
+                print("not granted")
+            }
+        })
     }
     
     private func matches(for regex: String, in text: String) -> [String] {
