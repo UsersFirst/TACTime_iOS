@@ -36,6 +36,9 @@ class SettingsViewController: UIViewController, MFMailComposeViewControllerDeleg
         self.toDatePicker.locale = Locale(identifier: "en_US")
         self.toDatePicker.addTarget(self, action: #selector(self.toDatePicked), for: .valueChanged)
         self.toTextField.inputView = toDatePicker
+        
+        fromDatePicked()
+        toDatePicked()
     }
     
     @objc func fromDatePicked() {

@@ -77,6 +77,8 @@ class ViewController: UIViewController, SettingDelegate {
     
     @IBAction func settings(_ sender: Any) {
         guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "SettingsViewController") as? SettingsViewController else {return}
+        vc.fromDatePicker.date = self.fromDate
+        vc.toDatePicker.date = self.toDate
         vc.delegate = self
         self.present(vc, animated: true, completion: nil)
     }
