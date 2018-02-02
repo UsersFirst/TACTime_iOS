@@ -48,7 +48,7 @@ class ViewController: UIViewController, SettingDelegate {
         self.tableView.addGestureRecognizer(leftSwipeGesture)
         
         self.fetchData()
-        self.parseAndSave(text: "Call hsam at 10:36 PM")
+//        self.parseAndSave(text: "Call hsam at 10:36 PM")
     }
     
     override func viewDidAppear(_ animated: Bool) {
