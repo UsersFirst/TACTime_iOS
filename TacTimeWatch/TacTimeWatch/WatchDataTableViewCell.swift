@@ -15,8 +15,8 @@ class WatchDataTableViewCell: UITableViewCell {
     @IBOutlet weak var noteLabel: UILabel!
     @IBOutlet weak var originalTextLabel: UILabel!
     @IBOutlet weak var alarmSwitch: UISwitch!
-    @IBOutlet weak var completedButton: UIButton!
-    var onComplete: (()->())?
+//    @IBOutlet weak var completedButton: UIButton!
+//    var onComplete: (()->())?
     var onAlarm: ((Bool) -> ())?
     
     var data: WatchDataModel? {
@@ -34,10 +34,10 @@ class WatchDataTableViewCell: UITableViewCell {
     }
     
     @IBAction func alarmSwitchChanged(_ sender: Any) {
-//        onAlarm?(alarmSwitch.isOn)
+        onAlarm?(alarmSwitch.isOn)
     }
     
-    @IBAction func completed(_ sender: Any) {
-//        onComplete?()
-    }
+//    @IBAction func completed(_ sender: Any) {
+////        onComplete?()
+//    }
 }
