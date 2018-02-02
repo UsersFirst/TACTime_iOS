@@ -14,4 +14,9 @@ extension WatchDataModel {
         return "\"\(startDate)\",\"\(endDate)\",\"\(self.note ?? "")\",\"\(self.text ?? "")\"\n"
     }
     static let stringFormat = "start date, end date, note, original text"
+    
+    var isValid: Bool {
+        guard let startDate = self.startDate, let note = self.note, let text = self.text else {return false}
+        return true
+    }
 }

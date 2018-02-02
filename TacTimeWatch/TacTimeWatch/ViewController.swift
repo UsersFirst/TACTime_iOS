@@ -15,6 +15,7 @@ class ViewController: UIViewController, SettingDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var arrivingText: UILabel!
     
     private let eventStore = EKEventStore()
     
@@ -48,15 +49,24 @@ class ViewController: UIViewController, SettingDelegate {
         self.tableView.addGestureRecognizer(leftSwipeGesture)
         
         self.fetchData()
+        
+        self.reload(nil)
 //        self.parseAndSave(text: "Call hsam at 10:36 PM")
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
+    @IBAction func settings(_ sender: Any) {
+        guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "SettingsViewController") as? SettingsViewController else {return}
+        vc.fromDatePicker.date = self.fromDate
+        vc.toDatePicker.date = self.toDate
+        vc.delegate = self
+        self.present(vc, animated: true, completion: nil)
+    }
+    
+    @IBAction func reload(_ sender: Any?) {
         if WCSession.isSupported() {
-            
             let session = WCSession.default
+            session.delegate = self
+            session.activate()
             if !session.isPaired {
                 self.alert(msg: "Watch not paired.", title: "Error")
                 return
@@ -67,20 +77,10 @@ class ViewController: UIViewController, SettingDelegate {
                 return
             }
             
-            session.delegate = self
-            session.activate()
         }else {
             self.alert(msg: "Watch Connectivity not supported in your device.", title: "Error")
             return
         }
-    }
-    
-    @IBAction func settings(_ sender: Any) {
-        guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "SettingsViewController") as? SettingsViewController else {return}
-        vc.fromDatePicker.date = self.fromDate
-        vc.toDatePicker.date = self.toDate
-        vc.delegate = self
-        self.present(vc, animated: true, completion: nil)
     }
     
     func filter(from: Date, to: Date) {
@@ -145,6 +145,11 @@ class ViewController: UIViewController, SettingDelegate {
         model.endDate = dates.1 as NSDate?
         model.note = dates.2
         model.alarm = true
+        
+        if !model.isValid {
+            self.alert(msg: "Invalid event: \(text)", title: "Invalid")
+            return
+        }
         
         do {
             try managedContext.save()
@@ -288,6 +293,7 @@ extension ViewController: WCSessionDelegate {
     func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
         let msg = message["INPUT"] as! String
         DispatchQueue.main.async {
+            
             self.parseAndSave(text: msg)
             print("Message : \(msg)")
         }

@@ -18,7 +18,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="niW-Yo-cf0">
+                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="niW-Yo-cf0">
                                 <rect key="frame" x="302" y="20" width="57" height="30"/>
                                 <state key="normal" title="Settings"/>
                                 <connections>
@@ -140,19 +140,40 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dOZ-1P-lOp">
+                                <rect key="frame" x="0.0" y="0.0" width="247" height="50"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U3W-bB-MDw">
+                                <rect key="frame" x="247" y="20" width="47" height="30"/>
+                                <state key="normal" title="Reload"/>
+                                <connections>
+                                    <action selector="reload:" destination="BYZ-38-t0r" eventType="touchUpInside" id="yv8-E0-JhC"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="niW-Yo-cf0" firstAttribute="top" secondItem="Uee-0j-aNJ" secondAttribute="top" id="1wJ-Te-bqq"/>
                             <constraint firstItem="Uee-0j-aNJ" firstAttribute="trailing" secondItem="niW-Yo-cf0" secondAttribute="trailing" constant="16" id="5hk-jI-Apm"/>
+                            <constraint firstItem="dOZ-1P-lOp" firstAttribute="leading" secondItem="Uee-0j-aNJ" secondAttribute="leading" id="5lD-Er-nr1"/>
                             <constraint firstItem="Uee-0j-aNJ" firstAttribute="bottom" secondItem="abe-LX-hjU" secondAttribute="bottom" id="5rb-MC-NJG"/>
+                            <constraint firstItem="dOZ-1P-lOp" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="Spq-9c-DXB"/>
+                            <constraint firstItem="U3W-bB-MDw" firstAttribute="leading" secondItem="dOZ-1P-lOp" secondAttribute="trailing" id="Wbl-CM-Hcn"/>
+                            <constraint firstItem="U3W-bB-MDw" firstAttribute="top" secondItem="Uee-0j-aNJ" secondAttribute="top" id="aJR-oI-Usl"/>
+                            <constraint firstItem="abe-LX-hjU" firstAttribute="top" secondItem="dOZ-1P-lOp" secondAttribute="bottom" id="agm-6G-dKo"/>
                             <constraint firstItem="Uee-0j-aNJ" firstAttribute="trailing" secondItem="abe-LX-hjU" secondAttribute="trailing" id="dap-B4-3SH"/>
+                            <constraint firstItem="abe-LX-hjU" firstAttribute="top" secondItem="U3W-bB-MDw" secondAttribute="bottom" id="mmD-BG-dha"/>
                             <constraint firstItem="abe-LX-hjU" firstAttribute="top" secondItem="niW-Yo-cf0" secondAttribute="bottom" id="qeK-4D-kHl"/>
                             <constraint firstItem="abe-LX-hjU" firstAttribute="leading" secondItem="Uee-0j-aNJ" secondAttribute="leading" id="tf4-S5-meh"/>
+                            <constraint firstItem="niW-Yo-cf0" firstAttribute="leading" secondItem="U3W-bB-MDw" secondAttribute="trailing" constant="8" id="v3r-Sa-OTN"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Uee-0j-aNJ"/>
                     </view>
                     <connections>
+                        <outlet property="arrivingText" destination="dOZ-1P-lOp" id="dOW-sE-qTD"/>
                         <outlet property="dateLabel" destination="O7e-7h-l14" id="xlM-Tq-PYs"/>
                         <outlet property="tableView" destination="abe-LX-hjU" id="Nf5-FR-r6z"/>
                     </connections>
