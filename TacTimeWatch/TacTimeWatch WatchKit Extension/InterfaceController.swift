@@ -29,6 +29,7 @@ class InterfaceController: WKInterfaceController {
         super.willActivate()
         session.delegate = self
         session.activate()
+        textInputButtonPressed()
     }
     
     override func didDeactivate() {
@@ -37,21 +38,31 @@ class InterfaceController: WKInterfaceController {
     }
     
     @IBAction func textInputButtonPressed() {
-        self.presentTextInputControllerWithSuggestions(forLanguage: { (lang) -> [Any]? in
-            return []
-//            return ["7 AM to 8 PM work at office", "8 PM to 9:15 PM workout at gym", "9:20 PM to 10 PM Watch tv"]
-        }, allowedInputMode: WKTextInputMode.plain) { (results) in
+        //            ,
+        //                                   completion: { (result) -> Void in
+        //
+        //        })
+        //
+        //        self.presentTextInputControllerWithSuggestions(forLanguage: { (lang) -> [Any]? in
+        //            return []
+        ////            return ["7 AM to 8 PM work at office", "8 PM to 9:15 PM workout at gym", "9:20 PM to 10 PM Watch tv"]
+        //        }, allowedInputMode: WKTextInputMode.plain)
+        
+        presentTextInputController(
+            withSuggestions: nil,
+            allowedInputMode: .plain)
+        { (results) in
             if results != nil && results!.count > 0 {
                 if let aResult = results?[0] as? String {
                     self.myLabel.setText(aResult)
                     //Send Data to iOS
                     if self.session.isReachable {
                         let msg = ["INPUT" : aResult]
-//                        DispatchQueue.main.async {
-                            self.session.sendMessage(msg, replyHandler: nil, errorHandler: { (error) in
-                                print("MESSAGE SEND FAILED \(error.localizedDescription)")
-                            })
-//                        }
+                        //                        DispatchQueue.main.async {
+                        self.session.sendMessage(msg, replyHandler: nil, errorHandler: { (error) in
+                            print("MESSAGE SEND FAILED \(error.localizedDescription)")
+                        })
+                        //                        }
                     }else {
                         print("SESSION UNREACHABLE")
                     }

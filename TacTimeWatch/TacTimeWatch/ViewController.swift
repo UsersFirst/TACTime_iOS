@@ -40,6 +40,7 @@ class ViewController: UIViewController, SettingDelegate {
         setDate()
         
         tableView.dataSource = self
+        tableView.delegate = self
         tableView.tableFooterView = UIView()
         
         let rightSwipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(self.swipped(_:)))
@@ -51,7 +52,7 @@ class ViewController: UIViewController, SettingDelegate {
         self.fetchData()
         
         self.reload(nil)
-//        self.parseAndSave(text: "Call hsam at 10:36 PM")
+        //        self.parseAndSave(text: "Call hsam at 10:36 PM")
     }
     
     @IBAction func settings(_ sender: Any) {
@@ -179,7 +180,7 @@ class ViewController: UIViewController, SettingDelegate {
                 event.startDate = startDate
                 event.endDate = (model.endDate as Date?) ?? startDate
                 event.calendar = self.eventStore.defaultCalendarForNewEvents
-
+                
                 let alarm = EKAlarm(absoluteDate: startDate)
                 event.addAlarm(alarm)
                 
@@ -246,7 +247,34 @@ class ViewController: UIViewController, SettingDelegate {
             }
         })
     }
+    
+}
 
+// MARK: UITableViewDelegate
+
+extension ViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            guard let appDelegate =
+                UIApplication.shared.delegate as? AppDelegate else {
+                    return
+            }
+            
+            let model = self.data[indexPath.row]
+            
+            let managedContext =
+                appDelegate.persistentContainer.viewContext
+            self.data.remove(at: indexPath.row)
+            managedContext.delete(model)
+            self.tableView.reloadData()
+        }
+    }
+    
 }
 
 // MARK: UITableViewDataSource
@@ -275,11 +303,11 @@ extension ViewController: UITableViewDataSource {
                 tableView.reloadData()
             }
         }
-//        cell.onComplete = {[weak self] in
-//            cell.data?.completed = Date() as NSDate
-//            self?.setComplete(model: cell.data!)
-//            tableView.reloadData()
-//        }
+        //        cell.onComplete = {[weak self] in
+        //            cell.data?.completed = Date() as NSDate
+        //            self?.setComplete(model: cell.data!)
+        //            tableView.reloadData()
+        //        }
         return cell
     }
 }

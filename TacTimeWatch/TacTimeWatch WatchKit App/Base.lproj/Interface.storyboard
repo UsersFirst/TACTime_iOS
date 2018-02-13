@@ -14,8 +14,8 @@
             <objects>
                 <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="TacTimeWatch_WatchKit_App" customModuleProvider="target">
                     <items>
-                        <label width="136" height="26" alignment="left" text="Label" textAlignment="center" id="yYC-jk-4u6"/>
-                        <button width="1" alignment="left" verticalAlignment="bottom" title="Text Input" id="urv-PS-SGZ">
+                        <label width="136" height="26" alignment="left" text=" " textAlignment="center" id="yYC-jk-4u6"/>
+                        <button width="1" alignment="left" verticalAlignment="bottom" title="Log Event" id="urv-PS-SGZ">
                             <color key="backgroundColor" red="0.85077053309999995" green="0.85489839320000005" blue="0.85892719029999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <fontDescription key="font" type="system" weight="semibold" pointSize="17"/>
                             <connections>
