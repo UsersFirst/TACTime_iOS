@@ -123,8 +123,8 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dOZ-1P-lOp">
-                                <rect key="frame" x="0.0" y="0.0" width="247" height="50"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="    " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dOZ-1P-lOp">
+                                <rect key="frame" x="0.0" y="0.0" width="18" height="50"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -136,6 +136,13 @@
                                     <action selector="reload:" destination="BYZ-38-t0r" eventType="touchUpInside" id="yv8-E0-JhC"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AUQ-Cs-ez4">
+                                <rect key="frame" x="169" y="20" width="70" height="30"/>
+                                <state key="normal" title="Add Event"/>
+                                <connections>
+                                    <action selector="addEvent:" destination="BYZ-38-t0r" eventType="touchUpInside" id="edC-gZ-bKX"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -143,8 +150,10 @@
                             <constraint firstItem="Uee-0j-aNJ" firstAttribute="trailing" secondItem="niW-Yo-cf0" secondAttribute="trailing" constant="16" id="5hk-jI-Apm"/>
                             <constraint firstItem="dOZ-1P-lOp" firstAttribute="leading" secondItem="Uee-0j-aNJ" secondAttribute="leading" id="5lD-Er-nr1"/>
                             <constraint firstItem="Uee-0j-aNJ" firstAttribute="bottom" secondItem="abe-LX-hjU" secondAttribute="bottom" id="5rb-MC-NJG"/>
+                            <constraint firstItem="abe-LX-hjU" firstAttribute="top" secondItem="AUQ-Cs-ez4" secondAttribute="bottom" id="95L-1g-g2x"/>
+                            <constraint firstItem="AUQ-Cs-ez4" firstAttribute="top" secondItem="Uee-0j-aNJ" secondAttribute="top" id="Fo8-zu-BHV"/>
                             <constraint firstItem="dOZ-1P-lOp" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="Spq-9c-DXB"/>
-                            <constraint firstItem="U3W-bB-MDw" firstAttribute="leading" secondItem="dOZ-1P-lOp" secondAttribute="trailing" id="Wbl-CM-Hcn"/>
+                            <constraint firstItem="AUQ-Cs-ez4" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="dOZ-1P-lOp" secondAttribute="trailing" id="W4P-46-u6G"/>
                             <constraint firstItem="U3W-bB-MDw" firstAttribute="top" secondItem="Uee-0j-aNJ" secondAttribute="top" id="aJR-oI-Usl"/>
                             <constraint firstItem="abe-LX-hjU" firstAttribute="top" secondItem="dOZ-1P-lOp" secondAttribute="bottom" id="agm-6G-dKo"/>
                             <constraint firstItem="Uee-0j-aNJ" firstAttribute="trailing" secondItem="abe-LX-hjU" secondAttribute="trailing" id="dap-B4-3SH"/>
@@ -152,6 +161,7 @@
                             <constraint firstItem="abe-LX-hjU" firstAttribute="top" secondItem="niW-Yo-cf0" secondAttribute="bottom" id="qeK-4D-kHl"/>
                             <constraint firstItem="abe-LX-hjU" firstAttribute="leading" secondItem="Uee-0j-aNJ" secondAttribute="leading" id="tf4-S5-meh"/>
                             <constraint firstItem="niW-Yo-cf0" firstAttribute="leading" secondItem="U3W-bB-MDw" secondAttribute="trailing" constant="8" id="v3r-Sa-OTN"/>
+                            <constraint firstItem="U3W-bB-MDw" firstAttribute="leading" secondItem="AUQ-Cs-ez4" secondAttribute="trailing" constant="8" id="wNX-7Z-Glz"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Uee-0j-aNJ"/>
                     </view>
