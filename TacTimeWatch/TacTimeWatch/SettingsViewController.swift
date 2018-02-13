@@ -87,7 +87,8 @@ class SettingsViewController: UIViewController, MFMailComposeViewControllerDeleg
             }
             do {
                 try csvText.write(to: path, atomically: true, encoding: .utf8)
-                self.sendMail(path: path)
+                self.openActivity(path: path)
+//                self.sendMail(path: path)
             } catch {
                 print(error)
                 self.alert(msg: "Cant create the file.", title: "Error")
@@ -114,6 +115,12 @@ class SettingsViewController: UIViewController, MFMailComposeViewControllerDeleg
         }else {
             self.alert(msg: "Can't send the mail.", title: "Error")
         }
+    }
+    
+    private func openActivity(path: URL) {
+        let objectsToShare = [path]
+        let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+        self.present(activityVC, animated: true, completion: nil)
     }
     
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {

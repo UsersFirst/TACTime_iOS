@@ -52,7 +52,7 @@ class ViewController: UIViewController, SettingDelegate {
         self.fetchData()
         
         self.reload(nil)
-        //        self.parseAndSave(text: "Call hsam at 10:36 PM")
+        self.parseAndSave(text: "Call hsam at 10:36 PM")
     }
     
     @IBAction func settings(_ sender: Any) {
