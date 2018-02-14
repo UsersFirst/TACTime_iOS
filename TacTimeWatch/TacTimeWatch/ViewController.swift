@@ -11,6 +11,8 @@ import WatchConnectivity
 import CoreData
 import  EventKit
 
+let calendarKey = "user_selected_calander"
+
 class ViewController: UIViewController, SettingDelegate {
     
     @IBOutlet weak var tableView: UITableView!
@@ -221,32 +223,41 @@ class ViewController: UIViewController, SettingDelegate {
                 event.title = model.note ?? "Task"
                 event.startDate = startDate
                 event.endDate = (model.endDate as Date?) ?? startDate
-//                event.calendar = eventStore.defaultCalendarForNewEvents
-                let alert = UIAlertController(title: "Choose Calender", message: nil, preferredStyle: .alert)
-                let calendars = self.eventStore.calendars(for: .event)
-                calendars.forEach({ (calendar) in
-                    let action = UIAlertAction(title: calendar.title, style: .default, handler: { (_) in
-                        event.calendar = calendar
-                        
-                        let alarm = EKAlarm(absoluteDate: startDate)
-                        event.addAlarm(alarm)
-                        
-                        do {
-                            try self.eventStore.save(event, span: .thisEvent, commit: true)
-                            model.reminderId = event.eventIdentifier
-                            model.alarm = true
-                            completion()
-                        }catch {
-                            self.alert(msg: "Error creating and saving new event : \(error)", title: "Error")
-                        }
+                
+                func addEventToCalendar(calendar: EKCalendar) {
+                    UserDefaults.standard.set(calendar.calendarIdentifier, forKey: calendarKey)
+                    event.calendar = calendar
+                    let alarm = EKAlarm(absoluteDate: startDate)
+                    event.addAlarm(alarm)
+                    
+                    do {
+                        try self.eventStore.save(event, span: .thisEvent, commit: true)
+                        model.reminderId = event.eventIdentifier
+                        model.alarm = true
+                        completion()
+                    }catch {
+                        self.alert(msg: "Error creating and saving new event : \(error)", title: "Error")
+                    }
+                }
+                
+                if let calendarIdentifier = UserDefaults.standard.string(forKey: calendarKey),
+                    let calendar = self.eventStore.calendar(withIdentifier: calendarIdentifier) {
+                    addEventToCalendar(calendar: calendar)
+                }else {
+                    let alert = UIAlertController(title: "Choose Calender", message: nil, preferredStyle: .alert)
+                    let calendars = self.eventStore.calendars(for: .event)
+                    calendars.forEach({ (calendar) in
+                        let action = UIAlertAction(title: calendar.title, style: .default, handler: { (_) in
+                            addEventToCalendar(calendar: calendar)
+                        })
+                        alert.addAction(action)
                     })
-                    alert.addAction(action)
-                })
-                
-                let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-                alert.addAction(cancel)
-                
-                self.present(alert, animated: true, completion: nil)
+                    
+                    let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                    alert.addAction(cancel)
+                    
+                    self.present(alert, animated: true, completion: nil)
+                }
 
             }else {
                 print("not granted")

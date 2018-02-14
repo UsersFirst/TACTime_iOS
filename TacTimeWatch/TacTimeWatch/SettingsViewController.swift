@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 import MessageUI
+import EventKit
 
 protocol SettingDelegate:class {
     func filter(from: Date, to: Date)
@@ -17,11 +18,13 @@ protocol SettingDelegate:class {
 class SettingsViewController: UIViewController, MFMailComposeViewControllerDelegate {
     @IBOutlet weak var fromTextField: UITextField!
     @IBOutlet weak var toTextField: UITextField!
+    @IBOutlet weak var chooseCalendarButton: UIButton!
     
     let fromDatePicker: UIDatePicker = UIDatePicker()
     let toDatePicker: UIDatePicker = UIDatePicker()
     
     weak var delegate: SettingDelegate?
+    let eventStore = EKEventStore()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +42,11 @@ class SettingsViewController: UIViewController, MFMailComposeViewControllerDeleg
         
         fromDatePicked()
         toDatePicked()
+        
+        if let calendarIdentifier = UserDefaults.standard.string(forKey: calendarKey),
+            let calendarName = eventStore.calendar(withIdentifier: calendarIdentifier)?.title {
+            self.chooseCalendarButton.setTitle(calendarName, for: .normal)
+        }
     }
     
     @objc func fromDatePicked() {
@@ -66,6 +74,22 @@ class SettingsViewController: UIViewController, MFMailComposeViewControllerDeleg
             print("Could not fetch. \(error), \(error.userInfo)")
         }
         return []
+    }
+    
+    @IBAction func chooseCalendar(_ sender: UIButton) {
+        let alert = UIAlertController(title: "Choose Calender", message: nil, preferredStyle: .alert)
+        let calendars = self.eventStore.calendars(for: .event)
+        calendars.forEach({ (calendar) in
+            let action = UIAlertAction(title: calendar.title, style: .default, handler: { (_) in
+                UserDefaults.standard.set(calendar.calendarIdentifier, forKey: calendarKey)
+            })
+            alert.addAction(action)
+        })
+        
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(cancel)
+        
+        self.present(alert, animated: true, completion: nil)
     }
     
     @IBAction func filter(_ sender: Any) {

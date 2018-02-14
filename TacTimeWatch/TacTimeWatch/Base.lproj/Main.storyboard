@@ -184,7 +184,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="SVg-lx-sSA">
-                                <rect key="frame" x="16" y="60" width="343" height="260"/>
+                                <rect key="frame" x="16" y="60" width="343" height="215"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Start Date" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Edp-ww-wl4">
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="35"/>
@@ -207,14 +207,8 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qIo-Jm-DLo">
-                                        <rect key="frame" x="0.0" y="135" width="343" height="35"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hhe-4H-p8H">
-                                        <rect key="frame" x="0.0" y="180" width="343" height="35"/>
+                                        <rect key="frame" x="0.0" y="135" width="343" height="35"/>
                                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                         <state key="normal" title="Filter">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -224,7 +218,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bp3-ot-9xc">
-                                        <rect key="frame" x="0.0" y="225" width="343" height="35"/>
+                                        <rect key="frame" x="0.0" y="180" width="343" height="35"/>
                                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                         <state key="normal" title="Export to CSV">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -246,18 +240,53 @@
                                     <action selector="close:" destination="CWR-Yj-UsV" eventType="touchUpInside" id="kZG-4O-yKB"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fz1-dT-zsq">
+                                <rect key="frame" x="0.0" y="283" width="375" height="1"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="th0-Aw-bvf"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select Calendar" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qm1-13-Y1T">
+                                <rect key="frame" x="16" y="292" width="109" height="18"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E0U-y6-8LT">
+                                <rect key="frame" x="16" y="318" width="343" height="35"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="BfE-Kc-jwD"/>
+                                </constraints>
+                                <state key="normal" title=" Tap Choose Calendar">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="chooseCalendar:" destination="CWR-Yj-UsV" eventType="touchUpInside" id="fOh-Wh-Ip0"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="XTl-4X-MLg" firstAttribute="trailing" secondItem="9QJ-CF-ob5" secondAttribute="trailing" constant="16" id="2Qf-Gq-KQy"/>
+                            <constraint firstItem="XTl-4X-MLg" firstAttribute="trailing" secondItem="Fz1-dT-zsq" secondAttribute="trailing" id="5E8-Ng-cWS"/>
+                            <constraint firstItem="Fz1-dT-zsq" firstAttribute="top" secondItem="SVg-lx-sSA" secondAttribute="bottom" constant="8" id="7Aw-fI-Yij"/>
                             <constraint firstItem="9QJ-CF-ob5" firstAttribute="top" secondItem="XTl-4X-MLg" secondAttribute="top" id="JxR-2H-MNt"/>
+                            <constraint firstItem="Fz1-dT-zsq" firstAttribute="leading" secondItem="XTl-4X-MLg" secondAttribute="leading" id="M0T-b1-z4v"/>
+                            <constraint firstItem="Qm1-13-Y1T" firstAttribute="top" secondItem="Fz1-dT-zsq" secondAttribute="bottom" constant="8" id="N6y-Sb-GtJ"/>
+                            <constraint firstItem="E0U-y6-8LT" firstAttribute="leading" secondItem="XTl-4X-MLg" secondAttribute="leading" constant="16" id="NQg-rS-0xn"/>
+                            <constraint firstItem="Qm1-13-Y1T" firstAttribute="leading" secondItem="XTl-4X-MLg" secondAttribute="leading" constant="16" id="Xbq-zD-Eqv"/>
                             <constraint firstItem="SVg-lx-sSA" firstAttribute="leading" secondItem="XTl-4X-MLg" secondAttribute="leading" constant="16" id="aix-nT-2bK"/>
                             <constraint firstItem="SVg-lx-sSA" firstAttribute="top" secondItem="9QJ-CF-ob5" secondAttribute="bottom" id="fmn-tb-Ga4"/>
+                            <constraint firstItem="E0U-y6-8LT" firstAttribute="top" secondItem="Qm1-13-Y1T" secondAttribute="bottom" constant="8" id="hxj-g1-SoA"/>
                             <constraint firstItem="XTl-4X-MLg" firstAttribute="trailing" secondItem="SVg-lx-sSA" secondAttribute="trailing" constant="16" id="rui-m0-M4l"/>
+                            <constraint firstItem="XTl-4X-MLg" firstAttribute="trailing" secondItem="E0U-y6-8LT" secondAttribute="trailing" constant="16" id="xwB-LP-CFF"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="XTl-4X-MLg"/>
                     </view>
                     <connections>
+                        <outlet property="chooseCalendarButton" destination="E0U-y6-8LT" id="m0L-gW-PVq"/>
                         <outlet property="fromTextField" destination="Edp-ww-wl4" id="fnA-9A-FSJ"/>
                         <outlet property="toTextField" destination="kUt-f4-pEM" id="K5T-XP-e34"/>
                     </connections>
