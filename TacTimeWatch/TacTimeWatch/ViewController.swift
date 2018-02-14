@@ -9,7 +9,7 @@
 import UIKit
 import WatchConnectivity
 import CoreData
-import  EventKit
+import EventKit
 
 let calendarKey = "user_selected_calander"
 
@@ -81,10 +81,24 @@ class ViewController: UIViewController, SettingDelegate {
                 self.alert(msg: "Watch app not installed", title: "Error")
                 return
             }
-            
+            sendSetting()
         }else {
             self.alert(msg: "Watch Connectivity not supported in your device.", title: "Error")
             return
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        sendSetting()
+    }
+    
+    private func sendSetting() {
+        let session = WCSession.default
+        if session.isReachable {
+            session.sendMessage([scribbleKey: UserDefaults.standard.bool(forKey: scribbleKey)], replyHandler: nil, errorHandler: { (error) in
+                print(error)
+            })
         }
     }
     

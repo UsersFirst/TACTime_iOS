@@ -10,7 +10,7 @@ import WatchKit
 import Foundation
 import WatchConnectivity
 
-
+let scribbleKey = "IsScribbleOn"
 class InterfaceController: WKInterfaceController {
     
     @IBOutlet var myLabel: WKInterfaceLabel!
@@ -39,37 +39,7 @@ class InterfaceController: WKInterfaceController {
     
     @IBAction func textInputButtonPressed() {
 
-
-        self.presentTextInputControllerWithSuggestions(forLanguage: { (lang) -> [Any]? in
-            return []
-        }, allowedInputMode: WKTextInputMode.plain) { (results) in
-            
-            if results != nil && results!.count > 0 {
-                
-                if let aResult = results?[0] as? String {
-                    
-                    self.myLabel.setText(aResult)
-                    
-                    
-                    if self.session.isReachable {
-                        
-                        let msg = ["INPUT" : aResult]
-                        self.session.sendMessage(msg, replyHandler: nil, errorHandler: { (error) in
-                            print("MESSAGE SEND FAILED \(error.localizedDescription)")
-                        })
-                    }else {
-                        print("SESSION UNREACHABLE")
-                    }
-                }
-            }
-        }
-
-
-/*
-        presentTextInputController(
-            withSuggestions: nil,
-            allowedInputMode: .plain)
-        { (results) in
+        func sendMessage(results: [Any]?) {
             if results != nil && results!.count > 0 {
                 if let aResult = results?[0] as? String {
                     self.myLabel.setText(aResult)
@@ -87,16 +57,31 @@ class InterfaceController: WKInterfaceController {
                 }
             }
         }
-*/
         
-        
+        if UserDefaults.standard.bool(forKey: scribbleKey) {
+            self.presentTextInputController(
+                withSuggestions: nil,
+                allowedInputMode: .plain,
+                completion: sendMessage)
+        }else {
+            self.presentTextInputControllerWithSuggestions(forLanguage: { (lang) -> [Any]? in
+                return []
+            }, allowedInputMode: .plain,
+               completion: sendMessage)
+        }
     }
- 
+    
 }
 
 // MARK: WCSessionDelegate
 extension InterfaceController: WCSessionDelegate {
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
         
+    }
+    
+    func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
+        if let scribbleIsOn = message[scribbleKey] as? Bool {
+            UserDefaults.standard.set(scribbleIsOn, forKey: scribbleKey)
+        }
     }
 }

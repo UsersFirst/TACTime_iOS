@@ -15,10 +15,13 @@ protocol SettingDelegate:class {
     func filter(from: Date, to: Date)
 }
 
+let scribbleKey = "IsScribbleOn"
+
 class SettingsViewController: UIViewController, MFMailComposeViewControllerDelegate {
     @IBOutlet weak var fromTextField: UITextField!
     @IBOutlet weak var toTextField: UITextField!
     @IBOutlet weak var chooseCalendarButton: UIButton!
+    @IBOutlet weak var scribbleOnSwitch: UISwitch!
     
     let fromDatePicker: UIDatePicker = UIDatePicker()
     let toDatePicker: UIDatePicker = UIDatePicker()
@@ -47,6 +50,8 @@ class SettingsViewController: UIViewController, MFMailComposeViewControllerDeleg
             let calendarName = eventStore.calendar(withIdentifier: calendarIdentifier)?.title {
             self.chooseCalendarButton.setTitle(calendarName, for: .normal)
         }
+        
+        self.scribbleOnSwitch.setOn(UserDefaults.standard.bool(forKey: scribbleKey), animated: false) 
     }
     
     @objc func fromDatePicked() {
@@ -133,6 +138,10 @@ class SettingsViewController: UIViewController, MFMailComposeViewControllerDeleg
     
     @IBAction func close(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func scribbleOnChanged(_ sender: Any) {
+        UserDefaults.standard.set(scribbleOnSwitch.isOn, forKey: scribbleKey)
     }
     
     private func sendMail(path: URL) {

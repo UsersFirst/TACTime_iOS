@@ -266,20 +266,47 @@
                                     <action selector="chooseCalendar:" destination="CWR-Yj-UsV" eventType="touchUpInside" id="fOh-Wh-Ip0"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z1d-kP-tS7">
+                                <rect key="frame" x="0.0" y="361" width="375" height="1"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="vRd-m1-vNx"/>
+                                </constraints>
+                                <viewLayoutGuide key="safeArea" id="cCi-ot-RFY"/>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Scribble On" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BwO-YR-dN7">
+                                <rect key="frame" x="16" y="370" width="89.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hpT-eH-olb">
+                                <rect key="frame" x="122" y="365" width="49" height="31"/>
+                                <connections>
+                                    <action selector="scribbleOnChanged:" destination="CWR-Yj-UsV" eventType="valueChanged" id="Uwv-SA-3lI"/>
+                                </connections>
+                            </switch>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Z1d-kP-tS7" secondAttribute="trailing" id="1nz-P2-Pog"/>
                             <constraint firstItem="XTl-4X-MLg" firstAttribute="trailing" secondItem="9QJ-CF-ob5" secondAttribute="trailing" constant="16" id="2Qf-Gq-KQy"/>
+                            <constraint firstItem="Z1d-kP-tS7" firstAttribute="leading" secondItem="Rhi-19-Ero" secondAttribute="leading" id="3vF-8d-74l"/>
                             <constraint firstItem="XTl-4X-MLg" firstAttribute="trailing" secondItem="Fz1-dT-zsq" secondAttribute="trailing" id="5E8-Ng-cWS"/>
                             <constraint firstItem="Fz1-dT-zsq" firstAttribute="top" secondItem="SVg-lx-sSA" secondAttribute="bottom" constant="8" id="7Aw-fI-Yij"/>
+                            <constraint firstItem="BwO-YR-dN7" firstAttribute="leading" secondItem="XTl-4X-MLg" secondAttribute="leading" constant="16" id="Hkr-VO-lA9"/>
                             <constraint firstItem="9QJ-CF-ob5" firstAttribute="top" secondItem="XTl-4X-MLg" secondAttribute="top" id="JxR-2H-MNt"/>
                             <constraint firstItem="Fz1-dT-zsq" firstAttribute="leading" secondItem="XTl-4X-MLg" secondAttribute="leading" id="M0T-b1-z4v"/>
                             <constraint firstItem="Qm1-13-Y1T" firstAttribute="top" secondItem="Fz1-dT-zsq" secondAttribute="bottom" constant="8" id="N6y-Sb-GtJ"/>
                             <constraint firstItem="E0U-y6-8LT" firstAttribute="leading" secondItem="XTl-4X-MLg" secondAttribute="leading" constant="16" id="NQg-rS-0xn"/>
                             <constraint firstItem="Qm1-13-Y1T" firstAttribute="leading" secondItem="XTl-4X-MLg" secondAttribute="leading" constant="16" id="Xbq-zD-Eqv"/>
+                            <constraint firstItem="Z1d-kP-tS7" firstAttribute="top" secondItem="E0U-y6-8LT" secondAttribute="bottom" constant="8" id="Y2B-3f-Q8W"/>
                             <constraint firstItem="SVg-lx-sSA" firstAttribute="leading" secondItem="XTl-4X-MLg" secondAttribute="leading" constant="16" id="aix-nT-2bK"/>
                             <constraint firstItem="SVg-lx-sSA" firstAttribute="top" secondItem="9QJ-CF-ob5" secondAttribute="bottom" id="fmn-tb-Ga4"/>
                             <constraint firstItem="E0U-y6-8LT" firstAttribute="top" secondItem="Qm1-13-Y1T" secondAttribute="bottom" constant="8" id="hxj-g1-SoA"/>
+                            <constraint firstItem="BwO-YR-dN7" firstAttribute="top" secondItem="Z1d-kP-tS7" secondAttribute="bottom" constant="8" id="jOm-Uk-Cha"/>
+                            <constraint firstItem="hpT-eH-olb" firstAttribute="centerY" secondItem="BwO-YR-dN7" secondAttribute="centerY" id="mEV-nW-Jce"/>
+                            <constraint firstItem="hpT-eH-olb" firstAttribute="leading" secondItem="BwO-YR-dN7" secondAttribute="trailing" constant="16.5" id="ncH-ZI-Cyx"/>
                             <constraint firstItem="XTl-4X-MLg" firstAttribute="trailing" secondItem="SVg-lx-sSA" secondAttribute="trailing" constant="16" id="rui-m0-M4l"/>
                             <constraint firstItem="XTl-4X-MLg" firstAttribute="trailing" secondItem="E0U-y6-8LT" secondAttribute="trailing" constant="16" id="xwB-LP-CFF"/>
                         </constraints>
@@ -288,6 +315,7 @@
                     <connections>
                         <outlet property="chooseCalendarButton" destination="E0U-y6-8LT" id="m0L-gW-PVq"/>
                         <outlet property="fromTextField" destination="Edp-ww-wl4" id="fnA-9A-FSJ"/>
+                        <outlet property="scribbleOnSwitch" destination="hpT-eH-olb" id="hyk-6u-Tad"/>
                         <outlet property="toTextField" destination="kUt-f4-pEM" id="K5T-XP-e34"/>
                     </connections>
                 </viewController>
