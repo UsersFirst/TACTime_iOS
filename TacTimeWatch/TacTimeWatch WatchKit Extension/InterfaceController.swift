@@ -59,15 +59,15 @@ class InterfaceController: WKInterfaceController {
         }
         
         if UserDefaults.standard.bool(forKey: scribbleKey) {
-            self.presentTextInputController(
-                withSuggestions: nil,
-                allowedInputMode: .plain,
-                completion: sendMessage)
-        }else {
             self.presentTextInputControllerWithSuggestions(forLanguage: { (lang) -> [Any]? in
                 return []
             }, allowedInputMode: .plain,
                completion: sendMessage)
+        }else {
+            self.presentTextInputController(
+                withSuggestions: nil,
+                allowedInputMode: .plain,
+                completion: sendMessage)
         }
     }
     
