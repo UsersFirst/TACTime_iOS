@@ -84,14 +84,14 @@ class SettingsViewController: UIViewController, MFMailComposeViewControllerDeleg
     @IBAction func chooseCalendar(_ sender: UIButton) {
         let alert = UIAlertController(title: "Choose Calender", message: nil, preferredStyle: .alert)
         let calendars = self.eventStore.calendars(for: .event)
-        let filtered = calendars.filter({!$0.isImmutable && $0.allowsContentModifications})
+        let filtered = calendars.filter({$0.allowsContentModifications}) //calendars.filter({!$0.isImmutable && $0.allowsContentModifications})
         if filtered.count == 1 {
             UserDefaults.standard.set(filtered.first!.calendarIdentifier, forKey: calendarKey)
             self.chooseCalendarButton.setTitle(filtered.first!.title, for: .normal)
         }else {
             filtered.forEach({ (calendar) in
                 print("\(calendar.title) modification:\(calendar.allowsContentModifications) immutable:\(calendar.isImmutable)")
-                let action = UIAlertAction(title: calendar.title, style: .default, handler: { (_) in
+                let action = UIAlertAction(title: (calendar.title + calendar.source.title), style: .default, handler: { (_) in
                     UserDefaults.standard.set(calendar.calendarIdentifier, forKey: calendarKey)
                     self.chooseCalendarButton.setTitle(calendar.title, for: .normal)
                 })
