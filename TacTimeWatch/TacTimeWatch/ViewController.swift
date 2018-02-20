@@ -203,9 +203,18 @@ class ViewController: UIViewController, SettingDelegate {
     
     private func getStartTimeAndEndTime(text: String) -> (Date?, Date?, String?) {
         let result = chrono.parsedResultsFrom(naturalLanguageString: text, referenceDate: nil)
-        let startDate = result.startDate
-        let endDate = result.endDate
+        var startDate = result.startDate
+        var endDate = result.endDate
         let ignoredText = result.ignoredText
+        let containsAM = result.timePhrase?.lowercased().contains("am") ?? false
+        let containsPM = result.timePhrase?.lowercased().contains("pm") ?? false
+        if let sDate = startDate,
+            Calendar.current.startOfDay(for: sDate) == Calendar.current.startOfDay(for: Date()),
+            sDate.timeIntervalSince(Date()) < 0,
+            !(containsAM || containsPM) {
+            startDate = startDate?.addingTimeInterval(12*60*60)
+            endDate = endDate?.addingTimeInterval(12*60*60)
+        }
         return (startDate, endDate, ignoredText)
     }
     
@@ -260,12 +269,12 @@ class ViewController: UIViewController, SettingDelegate {
                 }else {
                     let alert = UIAlertController(title: "Choose Calender", message: nil, preferredStyle: .alert)
                     let calendars = self.eventStore.calendars(for: .event)
-                    let filtered = calendars.filter({!$0.isImmutable && $0.allowsContentModifications})
+                    let filtered = calendars.filter({$0.allowsContentModifications})
                     if filtered.count == 1 {
                         addEventToCalendar(calendar: filtered.first!)
                     }else {
                         filtered.forEach({ (calendar) in
-                            let action = UIAlertAction(title: calendar.title, style: .default, handler: { (_) in
+                            let action = UIAlertAction(title: calendar.title + " " + calendar.source.title, style: .default, handler: { (_) in
                                 addEventToCalendar(calendar: calendar)
                             })
                             alert.addAction(action)

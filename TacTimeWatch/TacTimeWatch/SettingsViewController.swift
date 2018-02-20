@@ -91,7 +91,7 @@ class SettingsViewController: UIViewController, MFMailComposeViewControllerDeleg
         }else {
             filtered.forEach({ (calendar) in
                 print("\(calendar.title) modification:\(calendar.allowsContentModifications) immutable:\(calendar.isImmutable)")
-                let action = UIAlertAction(title: (calendar.title + calendar.source.title), style: .default, handler: { (_) in
+                let action = UIAlertAction(title: (calendar.title + " " + calendar.source.title), style: .default, handler: { (_) in
                     UserDefaults.standard.set(calendar.calendarIdentifier, forKey: calendarKey)
                     self.chooseCalendarButton.setTitle(calendar.title, for: .normal)
                 })
@@ -120,7 +120,7 @@ class SettingsViewController: UIViewController, MFMailComposeViewControllerDeleg
         let result = self.fetchData()
         if result.count > 0 {
             csvText = result.reduce(csvText) { (result, model) -> String in
-                return result + "\n" + model.toString
+                return result + model.toString
             }
             do {
                 try csvText.write(to: path, atomically: true, encoding: .utf8)
