@@ -208,10 +208,12 @@ class ViewController: UIViewController, SettingDelegate {
         let ignoredText = result.ignoredText
         let containsAM = result.timePhrase?.lowercased().contains("am") ?? false
         let containsPM = result.timePhrase?.lowercased().contains("pm") ?? false
+        let containsMorning = result.timePhrase?.lowercased().contains("morning") ?? false
         if let sDate = startDate,
             Calendar.current.startOfDay(for: sDate) == Calendar.current.startOfDay(for: Date()),
             sDate.timeIntervalSince(Date()) < 0,
-            !(containsAM || containsPM) {
+            sDate.timeIntervalSince(Calendar.current.startOfDay(for: sDate)) < 12*60*60,
+            !(containsAM || containsPM || containsMorning) {
             startDate = startDate?.addingTimeInterval(12*60*60)
             endDate = endDate?.addingTimeInterval(12*60*60)
         }
